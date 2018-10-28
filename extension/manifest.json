@@ -18,20 +18,20 @@
     "scripts": ["app.js"]
   },
   "icons": {
-    "32": "img/ico/default/blue-32x32.png",
-    "48": "img/ico/default/blue-48x48.png",
-    "64": "img/ico/default/blue-64x64.png",
-    "96": "img/ico/default/blue-96x96.png",
-    "128": "img/ico/default/blue-128x128.png"
+    "32": "img/extension/blue-32x32.png",
+    "48": "img/extension/blue-48x48.png",
+    "64": "img/extension/blue-64x64.png",
+    "96": "img/extension/blue-96x96.png",
+    "128": "img/extension/blue-128x128.png"
   },
   "browser_action": {
     "default_popup": "html/index.html",
     "default_icon": {
-      "32": "img/ico/default/blue-32x32.png",
-      "48": "img/ico/default/blue-48x48.png",
-      "64": "img/ico/default/blue-64x64.png",
-      "96": "img/ico/default/blue-96x96.png",
-      "128": "img/ico/default/blue-128x128.png"
+      "32": "img/extension/blue-32x32.png",
+      "48": "img/extension/blue-48x48.png",
+      "64": "img/extension/blue-64x64.png",
+      "96": "img/extension/blue-96x96.png",
+      "128": "img/extension/blue-128x128.png"
     }
   }
 }

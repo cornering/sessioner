@@ -3,11 +3,14 @@
  */
 'use strict';
 
+
+/*
 // save current session in chrome local storage
 const sessionSave = () => {
-  chrome.tabs.query(null, tabList => {
+  // get all tabs of current chrome window
+  chrome.tabs.query({currentWindow: true}, tabList => {
     console.log('^^^^^^^^^^^^^^^^^^^^');
     console.log(tabList);
     console.log('^^^^^^^^^^^^^^^^^^^^');
   });
-};
+};*/

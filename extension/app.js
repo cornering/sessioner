@@ -24,6 +24,6 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener(info => {
   // open extension in new tab on `Open Extension in new tab` option click
   if(info.menuItemId === "showFullPage") {
-    chrome.tabs.create({url: chrome.extension.getURL('html/index.html#window')});
+    chrome.tabs.create({url: chrome.extension.getURL("html/index.html#window")});
   }
 });

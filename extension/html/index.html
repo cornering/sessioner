@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-  <button id="sessionSave">Save the session</button>
-  <script src="../js/session.js"></script>
+  <div class="commands">
+    <button id="new-session">New session</button>
+  </div>
+  <hr>
+  <ul id="tab-list"></ul>
+  <button id="save-session" disabled>Save</button>
+
+  <!-- Load config file at first -->
+  <script src="../js/config.js"></script>
+  <!-- Load classes -->
+  <script src="../js/class/tab.js"></script>
+  <script src="../js/class/session.js"></script>
+  <script src="../js/class/dom.js"></script>
+  <!-- Listener used to catch fired events -->
   <script src="../js/listener.js"></script>
 </body>
 </html>

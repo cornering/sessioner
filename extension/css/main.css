@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+.tab-checkbox {
+    display: none;
+}
+
+.tab-checkbox-label .tab-checkbox:checked + .tab-checkbox-body {
+    background: lime;
+    font-weight: bold;
+}
