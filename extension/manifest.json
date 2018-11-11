@@ -8,9 +8,6 @@
     "contextMenus",
     "tabs",
     "management",
-
-    "activeTab",
-    "declarativeContent",
     "storage"
   ],
   "background": {
@@ -25,7 +22,7 @@
     "128": "img/extension/blue-128x128.png"
   },
   "browser_action": {
-    "default_popup": "html/index.html",
+    "default_popup": "html/material.html",
     "default_icon": {
       "32": "img/extension/blue-32x32.png",
       "48": "img/extension/blue-48x48.png",

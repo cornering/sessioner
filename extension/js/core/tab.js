@@ -23,6 +23,13 @@ class Tab {
     // allTabs property is read only out of Tab scope
     return [...this.allTabs];
   }
+  
+  // return tabs data using array of tab ids
+  getTabsData(tabsId) {
+    return this.allTabs.filter(currTab => {
+      return tabsId.indexOf(currTab.id) !== -1;
+    });
+  }
 }
 
 const tab = new Tab();

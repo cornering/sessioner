@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sessioner (material)</title>
+
+  <!-- Load roboto font -->
+  <link rel="stylesheet" href="../assets/roboto/roboto.css">
+
+  <!-- Load google material icons (for mdl) -->
+  <link rel="stylesheet" href="../assets/material-icons/material-icons.css">
+  <!-- Load material design lite -->
+  <link rel="stylesheet" href="../assets/mdl/material.min.css">
+  <script defer src="../assets/mdl/material.min.js"></script>
+
+  <!-- Load custom stylesheets -->
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+  <div id="app" class="app mdl-color--grey-50">
+    <div id="wrapper" class="wrapper default">
+      <!-- each card must have class -card suffix -->
+      <section class="card settings-card">
+        <div class="actions-container">
+          <div class="pull-right button-container">
+            <div class="button-horizontal-border"></div>
+            <button title="back" card="default" class="mdl-button pull-right circle-button toggle-card">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+          </div>
+        </div>
+        <!-- TODO make menu -->
+      </section>
+      <section id="default-card" class="card default-card">
+        <div class="actions-container">
+          <button id="new-session" card="new-session"
+            class="mdl-button mdl-button--raised mdl-button--colored mdl-color--blue-500 toggle-card"
+          >add new session</button>
+          <!-- TODO quick mode action functional -->
+          <div class="quick-switch-container">
+            <label title="Quick mode" class="quick-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
+              <input type="checkbox" class="quick-switch mdl-switch__input">
+            </label>
+          </div>
+          <div class="pull-right button-container">
+            <div class="button-horizontal-border"></div>
+            <button title="settings" card="settings" class="mdl-button pull-right circle-button toggle-card">
+              <i class="material-icons">more_vert</i>
+            </button>
+          </div>
+        </div>
+        <div class="session-list-container loading">
+          <ul id="session-list" class="session-list"></ul>
+          <div class="loader mdl-color--grey-50">
+            <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
+          </div>
+        </div>
+      </section>
+      <section class="card new-session-card mdl-color--green-200">
+        <div class="actions-container">
+          <div class="button-container">
+            <button title="back" card="default" class="mdl-button pull-left circle-button toggle-card">
+              <i class="material-icons">arrow_back</i>
+            </button>
+            <div class="pull-right button-horizontal-border"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ############ [START] script ############ -->
+  <!-- Load config file at first -->
+  <script src="../js/config.js"></script>
+  <!-- Load classes -->
+  <script src="../js/core/tab.js"></script>
+  <script src="../js/core/session.js"></script>
+  <script src="../js/dom.js"></script>
+  <!-- Listener used to catch fired events -->
+  <script src="../js/listener.js"></script>
+  <!-- BootStrap -->
+  <script src="../js/bootstrap.js"></script>
+  <!-- ############ [END] script ############ -->
+</body>
+</html>
