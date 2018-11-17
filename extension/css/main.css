@@ -32,6 +32,11 @@ body {
     min-width: 36px;
     height: 36px;
     border-radius: 50px;
+    color: #424242;
+    transition: color .15s ease;
+}
+.circle-button:hover {
+    color: #000000;
 }
 /* --------------------------- */
 
@@ -230,6 +235,32 @@ body {
     left: 2px;
 }
 .quick-switch-label.mdl-switch.is-checked .mdl-switch__thumb::after {
+    color: #ffffff;
+}
+/* --------------------------- */
+
+/* new session actions */
+.new-session-container {
+    width: calc(100% - 60px);
+    padding: 2px 0 2px 12px;
+}
+.new-session-input {
+    padding: 0;
+    margin: 0;
+    height: 32px;
+    width: calc(100% - 48px);
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    outline: none;
+    color: #424242;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    transition: all .25s ease;
+}
+.new-session-input:focus {
+    border-bottom: 2px solid #2196f3;
+}
+.new-session-container .session-save {
+    background-color: #2196f3;
     color: #ffffff;
 }
 /* --------------------------- */
