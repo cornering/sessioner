@@ -68,5 +68,8 @@ DOM.setListenerToElement(config.elements.saveSessionButton, Dom.SELECTION.id, "c
   session.saveSession(tabsData, DOM.sessionName).then(() => {
     DOM.saveSessionCallback();
   });
-  //TODO save tab list in local storage
+});
+
+DOM.setListenerToElement(config.elements.tabSelectAll, Dom.SELECTION.id, "click", () => {
+  DOM.toggleSelectAll();
 });

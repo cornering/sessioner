@@ -33,6 +33,8 @@ class Dom {
     this._saveInput = document.getElementById(config.elements.saveSessionInput);
     // tooltip
     this._sessionListTooltip = document.getElementById(config.elements.sessionListTooltip);
+    // all tabs element
+    this._tabSelectAll = document.getElementById(config.elements.tabSelectAll);
   }
   
   static get SELECTION() {
@@ -140,6 +142,9 @@ class Dom {
     this.selectedTabs = [...document.getElementsByClassName(config.elements.tabCheckbox)].filter(
       tabCheckbox => tabCheckbox.checked
     ).map(tabCheckbox => tabCheckbox.value);
+  
+    if(this.selectedTabs.length) this._tabSelectAll.classList.add("tab-deselect-all");
+    else this._tabSelectAll.classList.remove("tab-deselect-all");
   }
   
   setSessionName(value = "") {
@@ -154,6 +159,9 @@ class Dom {
   resetNewSessionForm() {
     // reset tab list
     DOM.setSelectedTabs();
+    
+    // reset select all tabs button
+    this._tabSelectAll.classList.remove("tab-deselect-all");
     
     // remove input text
     DOM.setSessionName();
@@ -179,6 +187,16 @@ class Dom {
       highlightedSession.classList.remove(config.elements.sessionHighlighted);
       this._sessionListTooltip.hidden = true;
     }, 2000);
+  }
+  
+  toggleSelectAll() {
+    const deselect = this._tabSelectAll.classList.contains("tab-deselect-all");
+  
+    [...document.getElementsByClassName(config.elements.tabCheckbox)].forEach(element => {
+      element.checked = !deselect;
+    });
+    
+    this.setSelectedTabs();
   }
 }
 

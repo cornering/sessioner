@@ -31,7 +31,8 @@ const config = {
     tabCheckboxText: "tab-checkbox-text",
     tabCheckboxImg: "tab-checkbox-img",
     saveSessionInput: "session-name",
-    saveSessionButton: "save-session"
+    saveSessionButton: "save-session",
+    tabSelectAll: "tab-select-all"
   },
   defaultFaviconUrl: "img/default-favicon.png"
 };

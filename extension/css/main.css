@@ -317,6 +317,9 @@ body {
 /* --------------------------- */
 
 /* tabs list block */
+.tab-list {
+    padding-top: 4px;
+}
 .tab-checkbox-label {
     background-color: #ffffff;
     line-height: 20px;
@@ -381,4 +384,18 @@ body {
 .tab-checkbox-label:hover .tab-checkbox-img {
     display: inline;
 }
+
+.tab-select-all {
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 32px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    color: #212121;
+    font-weight: lighter;
+    cursor: pointer;
+}
+.tab-select-all .tab-deselect {display: none;}
+.tab-select-all.tab-deselect-all .tab-select {display: none;}
+.tab-select-all.tab-deselect-all .tab-deselect {display: inline;}
 /* --------------------------- */
