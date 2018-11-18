@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Sessioner",
+  "description": "Session saver extension for chrome!",
+  "version": "0.1.0",
+  "author": "David Nazaryan",
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "management",
+    "storage"
+  ],
+  "background": {
+    "persistent": false,
+    "scripts": ["app.js"]
+  },
+  "icons": {
+    "32": "img/extension/blue-32x32.png",
+    "48": "img/extension/blue-48x48.png",
+    "64": "img/extension/blue-64x64.png",
+    "96": "img/extension/blue-96x96.png",
+    "128": "img/extension/blue-128x128.png"
+  },
+  "browser_action": {
+    "default_popup": "html/material.html",
+    "default_icon": {
+      "32": "img/extension/blue-32x32.png",
+      "48": "img/extension/blue-48x48.png",
+      "64": "img/extension/blue-64x64.png",
+      "96": "img/extension/blue-96x96.png",
+      "128": "img/extension/blue-128x128.png"
+    }
+  }
+}
