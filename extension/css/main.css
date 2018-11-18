@@ -128,20 +128,18 @@ body {
 }
 /* --------------------------- */
 
-/* tabs end sessions containers scroll bar */
-.session-list::-webkit-scrollbar-track, .tab-list::-webkit-scrollbar-track {
+/* list containers scroll bar and styles */
+.list-container::-webkit-scrollbar-track {
     background-color: transparent;
 }
-.session-list::-webkit-scrollbar, .tab-list::-webkit-scrollbar {
+.list-container::-webkit-scrollbar {
     width: 8px;
 }
-.session-list::-webkit-scrollbar-thumb, .tab-list::-webkit-scrollbar-thumb {
+.list-container::-webkit-scrollbar-thumb {
     background-color: #bdbdbd;
 }
-/* --------------------------- */
 
-/* tabs end sessions list style */
-.tab-list, .session-list {
+.list-container {
     box-sizing: border-box;
     list-style: none;
     margin: 0;
@@ -317,8 +315,13 @@ body {
 /* --------------------------- */
 
 /* tabs list block */
+.tab-list-container {
+    padding-top: 10px;
+}
 .tab-list {
-    padding-top: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0 0 0;
 }
 .tab-checkbox-label {
     background-color: #ffffff;

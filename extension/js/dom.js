@@ -61,7 +61,7 @@ class Dom {
     if (!wrapper_class) return;
   
     this._wrapper.className = "wrapper " + wrapper_class;
-    DOM.resizePopup();
+    this.resizePopup();
   }
   
   // add loader class to element
@@ -87,12 +87,11 @@ class Dom {
         "</li>";
     });
     this._sessionListUl.innerHTML = listHtml;
-    this.setListenerToElement(config.elements.sessionListItem, Dom.SELECTION.class, "click", event => {
-      session.openSession(event.target.innerHTML).then(() => {
-        //TODO here!
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-      });
-    });
+    this.setListenerToElement(
+      config.elements.sessionListItem,
+      Dom.SELECTION.class,
+      "click", e => this.openSession(e.target)
+    );
   }
   
   setListenerToElement(element_selector, type, action, listener_function) {
@@ -158,13 +157,13 @@ class Dom {
   
   resetNewSessionForm() {
     // reset tab list
-    DOM.setSelectedTabs();
+    this.setSelectedTabs();
     
     // reset select all tabs button
     this._tabSelectAll.classList.remove("tab-deselect-all");
     
     // remove input text
-    DOM.setSessionName();
+    this.setSessionName();
     this._saveInput.value = "";
     // focus input, card toggle animation took 150ms
     setTimeout(() => this._saveInput.focus(), 151);
@@ -172,31 +171,46 @@ class Dom {
   
   // thinks to do after session save
   saveSessionCallback() {
-    DOM.setSessionList(session.getAll);
+    this.setSessionList(session.getAll);
     document.getElementById("wrapper").className = "wrapper default";
-    DOM.highlightSessionButton();
-    DOM.resizePopup();
+    this.highlightSessionButton();
+    this.resizePopup();
   }
   
+  // highlight session button and add tooltip
   highlightSessionButton() {
+    // highlight first session list
     const highlightedSession = document.getElementsByClassName(config.elements.sessionListItem)[0];
     highlightedSession.classList.add(config.elements.sessionHighlighted);
+    
+    // show tooltip
     this._sessionListTooltip.hidden = false;
     
+    // hide tooltip after 2 secs
     setTimeout(() => {
       highlightedSession.classList.remove(config.elements.sessionHighlighted);
       this._sessionListTooltip.hidden = true;
     }, 2000);
   }
   
+  // toggle select all tabs button state
   toggleSelectAll() {
     const deselect = this._tabSelectAll.classList.contains("tab-deselect-all");
-  
     [...document.getElementsByClassName(config.elements.tabCheckbox)].forEach(element => {
       element.checked = !deselect;
     });
-    
+    // update selected tab list
     this.setSelectedTabs();
+    
+    // update form button state
+    this.toggleSaveButton();
+  }
+  
+  openSession(target) {
+    session.openSession(target.innerHTML).then(() => {
+      //TODO here!
+      console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    });
   }
 }
 

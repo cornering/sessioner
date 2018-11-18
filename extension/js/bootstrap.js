@@ -70,6 +70,4 @@ DOM.setListenerToElement(config.elements.saveSessionButton, Dom.SELECTION.id, "c
   });
 });
 
-DOM.setListenerToElement(config.elements.tabSelectAll, Dom.SELECTION.id, "click", () => {
-  DOM.toggleSelectAll();
-});
+DOM.setListenerToElement(config.elements.tabSelectAll, Dom.SELECTION.id, "click", () => DOM.toggleSelectAll());
