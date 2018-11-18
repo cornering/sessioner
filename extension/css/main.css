@@ -1,6 +1,8 @@
 /* Custom stylesheet */
 
 html {
+    min-height: 180px;
+    max-height: 555px;
     height: 100%;
 }
 body {
@@ -8,8 +10,9 @@ body {
     -webkit-user-select: none;
     overflow: hidden;
     width: 300px;
-    height: 180px;
+    height: 100%;
     min-height: 180px;
+    max-height: 555px;
     margin: 0;
     padding: 0;
     border: none;
@@ -45,12 +48,12 @@ body {
     margin: 0;
     height: 100%;
     width: 100vw;
+    max-height: 552px;
     max-width: 300px;
     overflow: hidden;
 }
 .wrapper {
     transition: all .25s ease;
-    position: absolute;
     height: 100%;
 }
 .card {
@@ -146,9 +149,9 @@ body {
     position: relative;
     display: block;
     overflow-y: auto;
-    /* === */
-    height: 125px;
     min-height: 125px;
+    max-height: 500px;
+    height: 100%;
 }
 /* --------------------------- */
 

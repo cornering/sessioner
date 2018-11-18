@@ -13,7 +13,16 @@ class Dom {
     // chrome doesn't provide system pages favicon URL
     this._defaultFavicon = chrome.extension.getURL(config.defaultFaviconUrl);
     //TODO get system and extension favicons
+
+    // body and html
+    this._html = document.documentElement;
+    this._body = document.body;
   
+    // wrapper element
+    this._app = document.getElementById(config.elements.app);
+    // wrapper element
+    this._wrapper = document.getElementById(config.elements.wrapper);
+    
     // ul of session list
     this._sessionListUl = document.getElementById(config.elements.sessionListUl);
     // ul of tab list
@@ -34,6 +43,26 @@ class Dom {
     };
   }
   
+  // dynamically change popup window height
+  resizePopup() {
+    // select current card height
+    const height = document.getElementsByClassName(this._wrapper.classList[1]+"-card")[0].offsetHeight+"px";
+    this._app.style.height = height;
+    
+    // change body nd html height as well
+    this._html.style.height = height;
+    this._body.style.height = height;
+  }
+  
+  toggleCard(target) {
+    const wrapper_class = target.getAttribute("card") || target.parentNode.getAttribute("card");
+    if (!wrapper_class) return;
+  
+    this._wrapper.className = "wrapper " + wrapper_class;
+    DOM.resizePopup();
+  }
+  
+  // add loader class to element
   toggleLoading(prefix, query, loading) {
     const element = document.querySelector(prefix+query);
     
@@ -129,15 +158,16 @@ class Dom {
     // remove input text
     DOM.setSessionName();
     this._saveInput.value = "";
-    this._saveInput.focus();
+    // focus input, card toggle animation took 150ms
+    setTimeout(() => this._saveInput.focus(), 151);
   }
   
   // thinks to do after session save
   saveSessionCallback() {
     DOM.setSessionList(session.getAll);
     document.getElementById("wrapper").className = "wrapper default";
-    DOM.resetNewSessionForm();
     DOM.highlightSessionButton();
+    DOM.resizePopup();
   }
   
   highlightSessionButton() {

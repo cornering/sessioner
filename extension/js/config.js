@@ -11,6 +11,8 @@ const config = {
   elements: {
     drag: "drag",
     loading: "loading",
+    wrapper: "wrapper",
+    app: "app",
   
     defaultCard: "default-card",
     toggleCard: "toggle-card",

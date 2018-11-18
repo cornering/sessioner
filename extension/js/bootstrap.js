@@ -11,6 +11,7 @@ session.syncSessionList().then(() => {
     config.elements.sessionListContainer,
     false
   );
+  DOM.resizePopup();
 });
 
 // show current window tabs list on new-session button click
@@ -38,6 +39,9 @@ DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "cl
       false
     );
     
+    // resize popup
+    DOM.resizePopup();
+    
     // add new session form validation on checkbox selection
     DOM.setListenerToElement(config.elements.tabCheckbox, Dom.SELECTION.class, "change", () => {
       DOM.setSelectedTabs();
@@ -53,10 +57,7 @@ DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "cl
 });
 
 // card-wrapper toggling system
-DOM.setListenerToElement(config.elements.toggleCard, Dom.SELECTION.class, "click", event => {
-  const wrapper_class = event.target.getAttribute("card") || event.target.parentNode.getAttribute("card");
-  if(wrapper_class) document.getElementById("wrapper").className = "wrapper " + wrapper_class;
-});
+DOM.setListenerToElement(config.elements.toggleCard, Dom.SELECTION.class, "click", e => DOM.toggleCard(e.target));
 
 // save new session
 DOM.setListenerToElement(config.elements.saveSessionButton, Dom.SELECTION.id, "click", () => {
