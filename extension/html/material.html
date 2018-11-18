@@ -50,13 +50,14 @@
           </div>
         </div>
         <div class="session-list-container loading">
+          <span hidden id="session-list-tooltip">Session added</span>
           <ul id="session-list" class="session-list"></ul>
           <div class="loader mdl-color--grey-50">
             <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
           </div>
         </div>
       </section>
-      <section class="card new-session-card mdl-color--green-200">
+      <section class="card new-session-card">
         <div class="actions-container">
           <div class="button-container">
             <button title="back" card="default" class="mdl-button pull-left circle-button toggle-card">
@@ -66,9 +67,17 @@
           </div>
           <div class="pull-right new-session-container">
             <input type="text" placeholder=" session name" id="session-name" class="new-session-input">
-            <button title="save session" card="default" class="mdl-button mdl-button--fab mdl-color--blue-500 pull-right circle-button session-save">
+            <button title="save session" card="default" id="save-session" class="mdl-button mdl-button--fab mdl-color--blue-500 pull-right circle-button session-save" disabled>
               <i class="material-icons">save_alt</i>
             </button>
+          </div>
+        </div>
+        <div class="tab-list-container">
+          <form id="tab-form" action="#">
+            <ul id="tab-list" class="tab-list"></ul>
+          </form>
+          <div class="loader mdl-color--grey-50">
+            <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
           </div>
         </div>
       </section>

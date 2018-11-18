@@ -20,7 +20,7 @@ chrome.runtime.onInstalled.addListener(() => {
   });
   
   // clear storage
-  //chrome.storage.sync.clear();
+  chrome.storage.sync.clear();
 });
 
 // works on context menu item click
@@ -31,3 +31,5 @@ chrome.contextMenus.onClicked.addListener(info => {
     //chrome.tabs.create({url: chrome.extension.getURL("html/index.html#window")});
   }
 });
+
+//TODO add jsDoc

@@ -5,22 +5,25 @@
 
 class Dom {
   constructor() {
-    /* ========================================
-    // get tab list container on init
-    this._tabList = document.getElementById(config.elements.tabList);
-    // save button to save the session
-    this._saveButton = document.getElementById(config.elements.saveSessionButton);
-    // new session name
-    this._saveInput = document.getElementById(config.elements.saveSessionInput);
+    // list of selected tabs and session name
+    this.selectedTabs = [];
+    this.sessionName = "";
+    
     // default favicon used for pages that haven't their own favicon
     // chrome doesn't provide system pages favicon URL
     this._defaultFavicon = chrome.extension.getURL(config.defaultFaviconUrl);
-    ======================================== */
     //TODO get system and extension favicons
-    //TODO add jsDoc
-    
+  
     // ul of session list
     this._sessionListUl = document.getElementById(config.elements.sessionListUl);
+    // ul of tab list
+    this._tabListUl = document.getElementById(config.elements.tabListUl);
+    // save button to save the session
+    this._saveButton = document.getElementById(config.elements.saveSessionButton);
+    // new session input
+    this._saveInput = document.getElementById(config.elements.saveSessionInput);
+    // tooltip
+    this._sessionListTooltip = document.getElementById(config.elements.sessionListTooltip);
   }
   
   static get SELECTION() {
@@ -35,8 +38,8 @@ class Dom {
     const element = document.querySelector(prefix+query);
     
     if(!element) return;
-    if(loading) element.classList.add("loading");
-    else element.classList.remove("loading");
+    if(loading) element.classList.add(config.elements.loading);
+    else element.classList.remove(config.elements.loading);
   }
   
   setSessionList(list) {
@@ -53,7 +56,12 @@ class Dom {
         "</li>";
     });
     this._sessionListUl.innerHTML = listHtml;
-    this.setListenerToElement(config.elements.sessionListItem, Dom.SELECTION.class, "click", this.openSession);
+    this.setListenerToElement(config.elements.sessionListItem, Dom.SELECTION.class, "click", event => {
+      session.openSession(event.target.innerHTML).then(() => {
+        //TODO here!
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      });
+    });
   }
   
   setListenerToElement(element_selector, type, action, listener_function) {
@@ -72,58 +80,76 @@ class Dom {
     }
   }
   
-  openSession(event) {
-    const sessionName = event.target.getAttribute("session-name");
-    
-    if(sessionName === undefined) throw new Error("Session name not found");
-    
-    session.openSession(sessionName);
-  }
-  
-  /*
   setTabList(allTabs) {
-    let domTabList = "";
+    // string to save generated HTML
+    let listHtml = "";
+    
     // generating tab list DOM with loop
     allTabs.forEach(currTab => {
+      // use default fav icon if icon is not exists
       let favIconUrl = currTab.favIconUrl || this._defaultFavicon;
-      domTabList +=
+      // generating html row
+      listHtml +=
         "<li>" +
-          "<label class='"+config.elements.tabCheckboxLabel+"'>" +
-            "<input value='"+currTab.id+"' class='"+config.elements.tabCheckbox+"' type='checkbox'>" +
-            "<span class='"+config.elements.tabCheckboxBody+"' title='"+currTab.url+"'>" +
-              "<img width='16' src='"+favIconUrl+"' alt='"+currTab.title+" favicon' title='"+currTab.title+"' />" +
-            "&nbsp;"+currTab.title+"</span>" +
+          "<input id='"+currTab.id+"' value='"+currTab.id+"' class='"+config.elements.tabCheckbox+"' type='checkbox'>" +
+          "<label for='"+currTab.id+"' class='"+config.elements.tabCheckboxLabel+"'>" +
+            "<i class='material-checkbox material-not-checked material-icons'>check_box_outline_blank</i>" +
+            "<i class='material-checkbox material-checked material-icons'>check_box</i>" +
+            "<img class='"+config.elements.tabCheckboxImg+"' width='16' src='"+favIconUrl+"' alt='"+currTab.title+" favicon' title='"+currTab.title+"' />" +
+            "<span class='"+config.elements.tabCheckboxText+"' title='"+currTab.url+"'>" +
+              "&nbsp;"+currTab.title +
+            "</span>" +
           "</label>" +
         "</li>";
     });
     
     // updating tab list container
-    this._tabList.innerHTML = domTabList;
+    this._tabListUl.innerHTML = listHtml;
   }
   
-  // enable/disable save session save button and input
-  toggleSaveBlock(enable) {
-    this._saveButton.disabled = !enable;
-    this._saveInput.disabled = !enable;
+  setSelectedTabs() {
+    this.selectedTabs = [...document.getElementsByClassName(config.elements.tabCheckbox)].filter(
+      tabCheckbox => tabCheckbox.checked
+    ).map(tabCheckbox => tabCheckbox.value);
   }
   
-  // get selected tab ids from DOM
-  getSelectedTabIds() {
-    // get all tab checkboxes from DOM
-    // [...] used to convert getElementsByClassName into array
-    return [...document.getElementsByClassName(config.elements.tabCheckbox)].filter(checkbox => {
-      // filtering checked ones
-      return checkbox.checked;
-    }).map(filteredCheckbox => {
-      // we need only values, which is chrome tab ids
-      return +filteredCheckbox.value;
-    });
+  setSessionName(value = "") {
+    this.sessionName = value;
   }
   
-  // get session name input value
-  getSessionName() {
-    return this._saveInput.value;
-  }*/
+  // enable/disable save session save button
+  toggleSaveButton() {
+    this._saveButton.disabled = !(this.selectedTabs.length && this.sessionName.length);
+  }
+  
+  resetNewSessionForm() {
+    // reset tab list
+    DOM.setSelectedTabs();
+    
+    // remove input text
+    DOM.setSessionName();
+    this._saveInput.value = "";
+    this._saveInput.focus();
+  }
+  
+  // thinks to do after session save
+  saveSessionCallback() {
+    DOM.setSessionList(session.getAll);
+    document.getElementById("wrapper").className = "wrapper default";
+    DOM.resetNewSessionForm();
+    DOM.highlightSessionButton();
+  }
+  
+  highlightSessionButton() {
+    const highlightedSession = document.getElementsByClassName(config.elements.sessionListItem)[0];
+    highlightedSession.classList.add(config.elements.sessionHighlighted);
+    this._sessionListTooltip.hidden = false;
+    
+    setTimeout(() => {
+      highlightedSession.classList.remove(config.elements.sessionHighlighted);
+      this._sessionListTooltip.hidden = true;
+    }, 2000);
+  }
 }
 
 const DOM = new Dom();

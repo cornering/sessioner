@@ -7,6 +7,7 @@ class Tab {
   constructor() {
     this.allTabs = [];
   }
+  
   // get all tabs of current chrome window
   setTabs() {
     // wrapping chrome.tabs.query callback function into promise
@@ -20,14 +21,14 @@ class Tab {
   }
   
   get getAll() {
-    // allTabs property is read only out of Tab scope
+    // allTabs property is read only out of tab scope
     return [...this.allTabs];
   }
   
-  // return tabs data using array of tab ids
+  // return tabs data using array of tab id's
   getTabsData(tabsId) {
     return this.allTabs.filter(currTab => {
-      return tabsId.indexOf(currTab.id) !== -1;
+      return tabsId.indexOf(currTab.id.toString()) !== -1;
     });
   }
 }

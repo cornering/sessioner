@@ -11,7 +11,7 @@
     DOM.setTabList(tab.getAll);
     DOM.toggleSaveBlock(true);
   });
-});
+});----------------------------------
 
 // save list of selected tabs in chrome local storage
 document.getElementById(config.elements.saveSessionButton).addEventListener("click", () => {

@@ -9,21 +9,27 @@ const config = {
     id: "#", class: ".", tab: ""
   },
   elements: {
+    drag: "drag",
+    loading: "loading",
+  
     defaultCard: "default-card",
+    toggleCard: "toggle-card",
+  
     sessionListContainer: "session-list-container",
     sessionListUl: "session-list",
     sessionListItem: "session-list-item",
-    drag: "drag",
-    toggleCard: "toggle-card",
-    newSession: "new-session",
-    /*tabList: "tab-list",
-    saveSessionButton: "save-session",
-    saveSessionInput: "session-name",
     newSessionButton: "new-session",
-  
+    sessionHighlighted: "session-highlighted",
+    sessionListTooltip: "session-list-tooltip",
+    
+    tabListContainer: "tab-list-container",
+    tabListUl: "tab-list",
     tabCheckbox: "tab-checkbox",
     tabCheckboxLabel: "tab-checkbox-label",
-    tabCheckboxBody: "tab-checkbox-body",*/
+    tabCheckboxText: "tab-checkbox-text",
+    tabCheckboxImg: "tab-checkbox-img",
+    saveSessionInput: "session-name",
+    saveSessionButton: "save-session"
   },
   defaultFaviconUrl: "img/default-favicon.png"
 };
