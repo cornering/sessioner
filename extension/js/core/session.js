@@ -30,10 +30,9 @@ class Session {
     // building set data
     const setData = {};
     
-    // adding new session to sessions list if it's not exists
+    // move updated session to top of sessions if it's exists
     let sessionIndex = this.allSessions.indexOf(name);
     if(sessionIndex !== -1) this.allSessions.splice(sessionIndex, 1);
-    
     setData.sessions = [...this.allSessions, name];
     
     // to provide dynamic session name
@@ -90,6 +89,20 @@ class Session {
         });
       });
     });
+  }
+  
+  removeSession(name) {
+    // remove session from sessions list
+    let sessionIndex = this.allSessions.indexOf(name);
+    if(sessionIndex !== -1) this.allSessions.splice(sessionIndex, 1);
+  
+    // update session list and delete session actions wrapped in promise
+    return Promise.all([
+      new Promise(resolve => {
+        chrome.storage.sync.set({sessions:this.allSessions}, () => resolve());
+        chrome.storage.sync.remove("session_"+name, () => resolve());
+      })
+    ]);
   }
 }
 
