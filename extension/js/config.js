@@ -22,7 +22,8 @@ const config = {
     sessionListItem: "session-list-item",
     newSessionButton: "new-session",
     sessionHighlighted: "session-highlighted",
-    sessionListTooltip: "session-list-tooltip",
+    sessionAddTooltip: "session-add-tooltip",
+    sessionRemoveTooltip: "session-remove-tooltip",
     
     tabListContainer: "tab-list-container",
     tabListUl: "tab-list",
@@ -31,7 +32,8 @@ const config = {
     tabCheckboxText: "tab-checkbox-text",
     tabCheckboxImg: "tab-checkbox-img",
     saveSessionInput: "session-name",
-    saveSessionButton: "save-session"
+    saveSessionButton: "save-session",
+    tabSelectAll: "tab-select-all"
   },
   defaultFaviconUrl: "img/default-favicon.png"
 };

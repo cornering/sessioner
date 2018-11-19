@@ -20,14 +20,14 @@ chrome.runtime.onInstalled.addListener(() => {
   });
   
   // clear storage
-  chrome.storage.sync.clear();
+  //chrome.storage.sync.clear();
 });
 
 // works on context menu item click
 chrome.contextMenus.onClicked.addListener(info => {
   // open extension in new tab on `Open Extension in new tab` option click
   if(info.menuItemId === "showFullPage") {
-    chrome.tabs.create({url: chrome.extension.getURL("html/material.html#window")});
+    chrome.tabs.create({url: chrome.extension.getURL("html/index.html#window")});
     //chrome.tabs.create({url: chrome.extension.getURL("html/index.html#window")});
   }
 });

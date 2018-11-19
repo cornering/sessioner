@@ -13,6 +13,10 @@ class Dom {
     // chrome doesn't provide system pages favicon URL
     this._defaultFavicon = chrome.extension.getURL(config.defaultFaviconUrl);
     //TODO get system and extension favicons
+  
+    // tooltip
+    this._sessionAddTooltip = document.getElementById(config.elements.sessionAddTooltip);
+    this._sessionRemoveTooltip = document.getElementById(config.elements.sessionRemoveTooltip);
 
     // body and html
     this._html = document.documentElement;
@@ -31,8 +35,8 @@ class Dom {
     this._saveButton = document.getElementById(config.elements.saveSessionButton);
     // new session input
     this._saveInput = document.getElementById(config.elements.saveSessionInput);
-    // tooltip
-    this._sessionListTooltip = document.getElementById(config.elements.sessionListTooltip);
+    // all tabs element
+    this._tabSelectAll = document.getElementById(config.elements.tabSelectAll);
   }
   
   static get SELECTION() {
@@ -59,7 +63,7 @@ class Dom {
     if (!wrapper_class) return;
   
     this._wrapper.className = "wrapper " + wrapper_class;
-    DOM.resizePopup();
+    this.resizePopup();
   }
   
   // add loader class to element
@@ -79,18 +83,19 @@ class Dom {
     list.forEach(sessionName => {
       // generating HTML string
       listHtml +=
-        "<li session-name='"+sessionName+"' class='"+config.elements.sessionListItem+"'>"+
-          "<i class='"+config.elements.drag+" material-icons mdl-color-text--deep-purple'>restore_page</i>"+
-          "<span class='session-list-item-text'>"+sessionName+"</span>"+
+        "<li session-name='"+sessionName+"' class='"+config.elements.sessionListItem+"'>" +
+          "<i class='"+config.elements.drag+" material-icons mdl-color-text--deep-purple'>restore_page</i>" +
+          "<span class='session-list-item-text'>"+sessionName+"</span>" +
+          //"<i class='session-update "+config.elements.drag+" material-icons'>update</i>" +
+          //"<i class='session-edit "+config.elements.drag+" material-icons'>edit</i>" +
+          "<i class='session-remove "+config.elements.drag+" material-icons'>delete</i>" +
         "</li>";
     });
     this._sessionListUl.innerHTML = listHtml;
-    this.setListenerToElement(config.elements.sessionListItem, Dom.SELECTION.class, "click", event => {
-      session.openSession(event.target.innerHTML).then(() => {
-        //TODO here!
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-      });
-    });
+    
+    [...document.getElementsByClassName(config.elements.sessionListItem)].forEach(
+      element => element.addEventListener("click", e => this.sessionAction(element, e.target))
+    );
   }
   
   setListenerToElement(element_selector, type, action, listener_function) {
@@ -140,6 +145,9 @@ class Dom {
     this.selectedTabs = [...document.getElementsByClassName(config.elements.tabCheckbox)].filter(
       tabCheckbox => tabCheckbox.checked
     ).map(tabCheckbox => tabCheckbox.value);
+  
+    if(this.selectedTabs.length) this._tabSelectAll.classList.add("tab-deselect-all");
+    else this._tabSelectAll.classList.remove("tab-deselect-all");
   }
   
   setSessionName(value = "") {
@@ -153,10 +161,13 @@ class Dom {
   
   resetNewSessionForm() {
     // reset tab list
-    DOM.setSelectedTabs();
+    this.setSelectedTabs();
+    
+    // reset select all tabs button
+    this._tabSelectAll.classList.remove("tab-deselect-all");
     
     // remove input text
-    DOM.setSessionName();
+    this.setSessionName();
     this._saveInput.value = "";
     // focus input, card toggle animation took 150ms
     setTimeout(() => this._saveInput.focus(), 151);
@@ -164,21 +175,70 @@ class Dom {
   
   // thinks to do after session save
   saveSessionCallback() {
-    DOM.setSessionList(session.getAll);
+    this.setSessionList(session.getAll);
     document.getElementById("wrapper").className = "wrapper default";
-    DOM.highlightSessionButton();
-    DOM.resizePopup();
+    this.highlightSessionButton();
+    this.resizePopup();
   }
   
+  // highlight session button and add tooltip
   highlightSessionButton() {
+    // highlight first session list
     const highlightedSession = document.getElementsByClassName(config.elements.sessionListItem)[0];
     highlightedSession.classList.add(config.elements.sessionHighlighted);
-    this._sessionListTooltip.hidden = false;
     
+    // show tooltip
+    this._sessionAddTooltip.hidden = false;
+    
+    // hide tooltip after 2 secs
     setTimeout(() => {
       highlightedSession.classList.remove(config.elements.sessionHighlighted);
-      this._sessionListTooltip.hidden = true;
+      this._sessionAddTooltip.hidden = true;
     }, 2000);
+  }
+  
+  // toggle select all tabs button state
+  toggleSelectAll() {
+    const deselect = this._tabSelectAll.classList.contains("tab-deselect-all");
+    [...document.getElementsByClassName(config.elements.tabCheckbox)].forEach(element => {
+      element.checked = !deselect;
+    });
+    // update selected tab list
+    this.setSelectedTabs();
+    
+    // update form button state
+    this.toggleSaveButton();
+  }
+  
+  sessionAction(element, target) {
+    // detect if remove icon clicked
+    const removeAction = target.classList.contains("session-remove");
+    const editAction = target.classList.contains("session-edit");
+    
+    switch (true) {
+      case removeAction:
+        // remove current session
+        session.removeSession(element.getAttribute("session-name")).then(() => {
+          // remove removed session element
+          element.remove();
+          this.resizePopup();
+          // show remove tooltip and hide after 2 seq
+          this._sessionRemoveTooltip.hidden = false;
+          setTimeout(() => this._sessionRemoveTooltip.hidden = true, 2000);
+        });
+        break;
+      case editAction:
+        //TODO editAction
+        console.log('--------------------');
+        console.log('edit!');
+        console.log('--------------------');
+        break;
+      default:
+        // open new session
+        session.openSession(element.getAttribute("session-name")).then(() => {
+          console.log("session opened");
+        });
+    }
   }
 }
 

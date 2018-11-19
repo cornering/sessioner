@@ -128,20 +128,18 @@ body {
 }
 /* --------------------------- */
 
-/* tabs end sessions containers scroll bar */
-.session-list::-webkit-scrollbar-track, .tab-list::-webkit-scrollbar-track {
+/* list containers scroll bar and styles */
+.list-container::-webkit-scrollbar-track {
     background-color: transparent;
 }
-.session-list::-webkit-scrollbar, .tab-list::-webkit-scrollbar {
+.list-container::-webkit-scrollbar {
     width: 8px;
 }
-.session-list::-webkit-scrollbar-thumb, .tab-list::-webkit-scrollbar-thumb {
+.list-container::-webkit-scrollbar-thumb {
     background-color: #bdbdbd;
 }
-/* --------------------------- */
 
-/* tabs end sessions list style */
-.tab-list, .session-list {
+.list-container {
     box-sizing: border-box;
     list-style: none;
     margin: 0;
@@ -158,7 +156,7 @@ body {
 /* sessions list block */
 .session-list-item {
     padding-left: 5px;
-    padding-right: 12px;
+    padding-right: 5px;
     cursor: pointer;
     align-items: center;
     -webkit-align-items: center;
@@ -168,7 +166,7 @@ body {
     color: #616161;
     line-height: 40px;
     white-space: nowrap;
-    max-width: calc(100% - 24px);
+    max-width: calc(100% - 18px);
     overflow: hidden;
     font-size: 81.25%;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -181,7 +179,8 @@ body {
 .session-list-item-text {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     display: inline-block;
-    padding-left: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -198,6 +197,20 @@ body {
     opacity: 1;
 }
 
+.session-list-item .session-remove:hover {
+    transition: all .25s ease;
+    color: #e53935;
+}
+.session-list-item .session-update,
+.session-list-item .session-edit {
+    margin-right: 5px;
+}
+.session-list-item .session-update:hover,
+.session-list-item .session-edit:hover {
+    transition: all .25s ease;
+    color: #1e88e5;
+}
+
 .session-list-item.session-highlighted {
     background-color: #e040fb;
 }
@@ -209,11 +222,8 @@ body {
     color: #ffffff !important;
 }
 
-#session-list-tooltip {
+.session-tooltip {
     position: absolute;
-    top: 110px;
-    left: calc(50% - 66px);
-    background-color: #212121;
     color: #ffffff;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     z-index: 9;
@@ -221,16 +231,26 @@ body {
     font-size: 15px;
     text-align: center;
     padding: 5px 0;
-    border-radius: 4px;
+    border-radius: 2px;
     width: 132px;
 }
-#session-list-tooltip:before {
+.session-add-tooltip {
+    top: 110px;
+    left: calc(50% - 66px);
+    background-color: #212121;
+}
+.session-add-tooltip:before {
     content: "";
     position: absolute;
     top: -16px;
     left: 58px;
     border: solid 8px transparent;
     border-bottom-color: #212121;
+}
+.session-remove-tooltip {
+    bottom: 6px;
+    right: 4px;
+    background-color: #d32f2f;
 }
 /* --------------------------- */
 
@@ -312,11 +332,19 @@ body {
 }
 .new-session-container .session-save:disabled {
     color: #212121 !important;
-    background-color: #9e9e9e !important;
+    background-color: #bdbdbd !important;
 }
 /* --------------------------- */
 
 /* tabs list block */
+.tab-list-container {
+    padding-top: 10px;
+}
+.tab-list {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0 0 0;
+}
 .tab-checkbox-label {
     background-color: #ffffff;
     line-height: 20px;
@@ -381,4 +409,18 @@ body {
 .tab-checkbox-label:hover .tab-checkbox-img {
     display: inline;
 }
+
+.tab-select-all {
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 32px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    color: #212121;
+    font-weight: lighter;
+    cursor: pointer;
+}
+.tab-select-all .tab-deselect {display: none;}
+.tab-select-all.tab-deselect-all .tab-select {display: none;}
+.tab-select-all.tab-deselect-all .tab-deselect {display: inline;}
 /* --------------------------- */
