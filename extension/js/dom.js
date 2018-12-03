@@ -81,15 +81,18 @@ class Dom {
     
     // loop over sessions
     list.forEach(sessionName => {
+      // escape double quot
+      sessionName = sessionName.replace(/"/g, "&quot;");
+      
       // generating HTML string
       listHtml +=
-        "<li session-name='"+sessionName+"' class='"+config.elements.sessionListItem+"'>" +
-          "<i class='"+config.elements.drag+" material-icons mdl-color-text--deep-purple'>restore_page</i>" +
-          "<span class='session-list-item-text'>"+sessionName+"</span>" +
-          //"<i class='session-update "+config.elements.drag+" material-icons'>update</i>" +
-          //"<i class='session-edit "+config.elements.drag+" material-icons'>edit</i>" +
-          "<i class='session-remove "+config.elements.drag+" material-icons'>delete</i>" +
-        "</li>";
+        `<li session-name="${sessionName}" class="${config.elements.sessionListItem}">` +
+          `<i class="${config.elements.drag} material-icons mdl-color-text--deep-purple">restore_page</i>` +
+          `<span class="session-list-item-text">${sessionName}</span>` +
+          //`<i class="session-update ${config.elements.drag} material-icons">update</i>` +
+          //`<i class="session-edit ${config.elements.drag} material-icons">edit</i>` +
+          `<i class="session-remove ${config.elements.drag} material-icons">delete</i>` +
+        `</li>`;
     });
     this._sessionListUl.innerHTML = listHtml;
     
@@ -124,17 +127,17 @@ class Dom {
       let favIconUrl = currTab.favIconUrl || this._defaultFavicon;
       // generating html row
       listHtml +=
-        "<li>" +
-          "<input id='"+currTab.id+"' value='"+currTab.id+"' class='"+config.elements.tabCheckbox+"' type='checkbox'>" +
-          "<label for='"+currTab.id+"' class='"+config.elements.tabCheckboxLabel+"'>" +
-            "<i class='material-checkbox material-not-checked material-icons'>check_box_outline_blank</i>" +
-            "<i class='material-checkbox material-checked material-icons'>check_box</i>" +
-            "<img class='"+config.elements.tabCheckboxImg+"' width='16' src='"+favIconUrl+"' alt='"+currTab.title+" favicon' title='"+currTab.title+"' />" +
-            "<span class='"+config.elements.tabCheckboxText+"' title='"+currTab.url+"'>" +
-              "&nbsp;"+currTab.title +
-            "</span>" +
-          "</label>" +
-        "</li>";
+        `<li>` +
+          `<input id="${currTab.id}" value="${currTab.id}" class="${config.elements.tabCheckbox}" type="checkbox">` +
+          `<label for="+${currTab.id}" class="${config.elements.tabCheckboxLabel}">` +
+            `<i class="material-checkbox material-not-checked material-icons">check_box_outline_blank</i>` +
+            `<i class="material-checkbox material-checked material-icons">check_box</i>` +
+            `<img class="${config.elements.tabCheckboxImg}" width="16" src="${favIconUrl}" alt="${currTab.title} favicon" title="${currTab.title}" />` +
+            `<span class="${config.elements.tabCheckboxText}" title="${currTab.url}">` +
+              `&nbsp;${currTab.title}` +
+            `</span>` +
+          `</label>` +
+        `</li>`;
     });
     
     // updating tab list container
