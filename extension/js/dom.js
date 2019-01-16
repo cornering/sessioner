@@ -129,7 +129,7 @@ class Dom {
       listHtml +=
         `<li>` +
           `<input id="${currTab.id}" value="${currTab.id}" class="${config.elements.tabCheckbox}" type="checkbox">` +
-          `<label for="+${currTab.id}" class="${config.elements.tabCheckboxLabel}">` +
+          `<label for="${currTab.id}" class="${config.elements.tabCheckboxLabel}">` +
             `<i class="material-checkbox material-not-checked material-icons">check_box_outline_blank</i>` +
             `<i class="material-checkbox material-checked material-icons">check_box</i>` +
             `<img class="${config.elements.tabCheckboxImg}" width="16" src="${favIconUrl}" alt="${currTab.title} favicon" title="${currTab.title}" />` +
@@ -197,7 +197,7 @@ class Dom {
     setTimeout(() => {
       highlightedSession.classList.remove(config.elements.sessionHighlighted);
       this._sessionAddTooltip.hidden = true;
-    }, 2000);
+    }, config.newSessionHighlightTimeOut);
   }
   
   // toggle select all tabs button state

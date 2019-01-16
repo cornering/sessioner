@@ -41,6 +41,9 @@ body {
 .circle-button:hover {
     color: #000000;
 }
+.circle-button .material-icons {
+    margin-bottom: 2px;
+}
 /* --------------------------- */
 
 /* Design core of extension */
@@ -212,7 +215,7 @@ body {
 }
 
 .session-list-item.session-highlighted {
-    background-color: #e040fb;
+    background-color: #2196f3;
 }
 .session-highlighted .drag {
     color: #ffffff !important;
@@ -274,6 +277,14 @@ body {
     height: 24px;
     margin-top: 6px;
     border-left: 1px solid rgba(0,0,0,0.15);
+}
+.menu-text {
+    display: inline-block;
+    line-height: 45px;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    padding-left: 18px;
 }
 /* --------------------------- */
 
@@ -342,8 +353,9 @@ body {
 }
 .tab-list {
     list-style: none;
-    margin: 0;
-    padding: 4px 0 0 0;
+    margin: 4px 0 0 15px;
+    padding: 0;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 .tab-checkbox-label {
     background-color: #ffffff;
@@ -351,26 +363,21 @@ body {
     padding: 6px 5px;
     position: relative;
     display: block;
-    width: calc(100% - 40px);
-    margin-left: 15px;
+    width: calc(100% - 10px);
     height: 32px;
+    transition-duration: .28s;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-property: background-color;
+    border-bottom: 1px solid rgba(0,0,0,.12);
 }
-.tab-checkbox-label::after {
-    bottom: 0;
-    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);
-    content: '';
-    display: block;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    right: 0;
-    top: 0;
+.tab-checkbox-label:hover {
+    background: #e0e0e0 !important;
 }
 .tab-checkbox {
     display: none;
 }
 .tab-checkbox:checked + .tab-checkbox-label {
-    background: #edf4fd;
+    background: #eeeeee;
 }
 
 .tab-checkbox-label .material-checkbox {
@@ -384,6 +391,7 @@ body {
 .tab-checkbox:checked + .tab-checkbox-label .material-checked,
 .tab-checkbox:checked + .tab-checkbox-label .tab-checkbox-img {
     display: inline;
+    color: #2196f3;
 }
 
 .tab-checkbox-text {

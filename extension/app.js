@@ -20,7 +20,7 @@ chrome.runtime.onInstalled.addListener(() => {
   });
   
   // clear storage
-  //chrome.storage.sync.clear();
+  //chrome.storage.local.clear();
 });
 
 // works on context menu item click

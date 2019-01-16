@@ -35,5 +35,6 @@ const config = {
     saveSessionButton: "save-session",
     tabSelectAll: "tab-select-all"
   },
-  defaultFaviconUrl: "img/default-favicon.png"
+  defaultFaviconUrl: "img/default-favicon.png",
+  newSessionHighlightTimeOut: 2000
 };

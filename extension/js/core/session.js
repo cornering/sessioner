@@ -13,7 +13,7 @@ class Session {
     // wrapping storage.sync callback function into promise
     return new Promise(resolve => {
       // get sessions list from storage
-      chrome.storage.sync.get("sessions", storage => {
+      chrome.storage.local.get("sessions", storage => {
         this.allSessions = storage.sessions ? storage.sessions.reverse() : [];
         resolve();
       });
@@ -48,10 +48,10 @@ class Session {
       })
     };
     
-    // wrapping storage.sync.set callback function into promise
+    // wrapping storage.local.set callback function into promise
     return new Promise(resolve => {
       // save new session and update sessions list
-      chrome.storage.sync.set(setData, () => {
+      chrome.storage.local.set(setData, () => {
         // push session name to list after success, if new session added
         this.allSessions.unshift(name);
         resolve();
@@ -61,10 +61,10 @@ class Session {
   
   // open saved session
   openSession(name) {
-    // wrapping storage.sync.get callback function into promise
+    // wrapping storage.local.get callback function into promise
     return new Promise(resolve => {
       // getting session from chrome local storage
-      chrome.storage.sync.get("session_"+name, storage => {
+      chrome.storage.local.get("session_"+name, storage => {
         // sort pinned and not pinned tabs
         const pinnedTabs = [], initTabUrls = [];
         storage["session_"+name].tabs.forEach(t => {
@@ -99,8 +99,8 @@ class Session {
     // update session list and delete session actions wrapped in promise
     return Promise.all([
       new Promise(resolve => {
-        chrome.storage.sync.set({sessions:this.allSessions}, () => resolve());
-        chrome.storage.sync.remove("session_"+name, () => resolve());
+        chrome.storage.local.set({sessions:this.allSessions}, () => resolve());
+        chrome.storage.local.remove("session_"+name, () => resolve());
       })
     ]);
   }
