@@ -52,8 +52,16 @@
           </div>
         </div>
         <div class="session-list-container loading">
-          <span hidden id="session-add-tooltip" class="session-tooltip session-add-tooltip">Session added</span>
-          <span hidden id="session-remove-tooltip" class="session-tooltip session-remove-tooltip">Session removed</span>
+          <span id="session-add-tooltip" class="session-tooltip">
+            <span class="tooltip-number">0</span>
+            <span>Session added</span>
+            <i class="material-icons tooltip-close">cancel</i>
+          </span>
+          <span id="session-remove-tooltip" class="session-tooltip">
+            <span class="tooltip-number">0</span>
+            <span>Session removed</span>
+            <i class="material-icons tooltip-close">cancel</i>
+          </span>
           <ul id="session-list" class="session-list list-container"></ul>
           <div class="loader mdl-color--grey-50">
             <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>

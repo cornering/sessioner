@@ -178,26 +178,13 @@ class Dom {
   
   // thinks to do after session save
   saveSessionCallback() {
+    // update sessions list
     this.setSessionList(session.getAll);
+    // move popup view to default card
     document.getElementById("wrapper").className = "wrapper default";
-    this.highlightSessionButton();
     this.resizePopup();
-  }
-  
-  // highlight session button and add tooltip
-  highlightSessionButton() {
-    // highlight first session list
-    const highlightedSession = document.getElementsByClassName(config.elements.sessionListItem)[0];
-    highlightedSession.classList.add(config.elements.sessionHighlighted);
-    
-    // show tooltip
-    this._sessionAddTooltip.hidden = false;
-    
-    // hide tooltip after 2 secs
-    setTimeout(() => {
-      highlightedSession.classList.remove(config.elements.sessionHighlighted);
-      this._sessionAddTooltip.hidden = true;
-    }, config.newSessionHighlightTimeOut);
+    // show and hide session added tooltip
+    this.toggleTooltip(this._sessionAddTooltip);
   }
   
   // toggle select all tabs button state
@@ -225,13 +212,13 @@ class Dom {
           // remove removed session element
           element.remove();
           this.resizePopup();
-          // show remove tooltip and hide after 2 seq
-          this._sessionRemoveTooltip.hidden = false;
-          setTimeout(() => this._sessionRemoveTooltip.hidden = true, 2000);
+          // show remove tooltip and hide
+          this.toggleTooltip(this._sessionRemoveTooltip);
         });
         break;
       case editAction:
         //TODO editAction
+        //TODO deprecated action
         console.log('--------------------');
         console.log('edit!');
         console.log('--------------------');
@@ -241,6 +228,49 @@ class Dom {
         session.openSession(element.getAttribute("session-name")).then(() => {
           console.log("session opened");
         });
+    }
+  }
+  
+  toggleTooltip(element) {
+    // select list of shown tooltips
+    const shownTooltips = document.getElementsByClassName(config.elements.showTooltipClass);
+
+    // check if one of tooltips are showed
+    if(shownTooltips.length) {
+      if(shownTooltips.length === 2 || shownTooltips[0].id === element.id) {
+        // if same tooltip is showed just add number to it
+        element.childNodes[1].innerHTML = ++element.childNodes[1].innerHTML;
+        element.classList.add(config.elements.tooltipWithCounter);
+      } else if(!shownTooltips[0].classList.contains(config.elements.secondTooltip)){
+        // if other tooltip is showed add this one behind them
+        element.classList.add(config.elements.secondTooltip);
+      }
+    }
+    //TODO work with tooltip sizes
+    
+    // show tooltip using class
+    element.classList.add(config.elements.showTooltipClass);
+    // remove tooltip show class after `tooltipToggleTimeOut` and clear tooltip
+    const counter = +element.childNodes[1].innerHTML;
+    setTimeout(() => {
+      if(counter !== +element.childNodes[1].innerHTML) return;
+      // reset tooltip counter
+      element.childNodes[1].innerHTML = 0;
+      // reset and hide tooltip
+      element.className = config.elements.sessionTooltip;
+    }, config.tooltipToggleTimeOut);
+  }
+  
+  hideTooltip(target) {
+    // select tooltip container
+    const element = target.classList.contains(config.elements.sessionTooltip) ? target : target.parentNode;
+    
+    // check if tooltip has shown
+    if(element.classList.contains(config.elements.showTooltipClass)) {
+      // reset tooltip counter
+      element.childNodes[1].innerHTML = 0;
+      // reset and hide tooltip
+      element.className = config.elements.sessionTooltip;
     }
   }
 }

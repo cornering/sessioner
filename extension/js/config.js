@@ -21,9 +21,14 @@ const config = {
     sessionListUl: "session-list",
     sessionListItem: "session-list-item",
     newSessionButton: "new-session",
-    sessionHighlighted: "session-highlighted",
+    
+    sessionTooltip: "session-tooltip",
     sessionAddTooltip: "session-add-tooltip",
     sessionRemoveTooltip: "session-remove-tooltip",
+    showTooltipClass: "session-tooltip-show",
+    secondTooltip: "second-tooltip",
+    tooltipWithCounter: "tooltip-with-counter",
+    tooltipNumber: "tooltip-number",
     
     tabListContainer: "tab-list-container",
     tabListUl: "tab-list",
@@ -36,5 +41,5 @@ const config = {
     tabSelectAll: "tab-select-all"
   },
   defaultFaviconUrl: "img/default-favicon.png",
-  newSessionHighlightTimeOut: 2000
+  tooltipToggleTimeOut: 5000
 };

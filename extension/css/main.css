@@ -67,6 +67,7 @@ body {
     padding: 0;
     width: 300px;
     min-height: 180px;
+    overflow-x: hidden;
 }
 /* --------------------------- */
 
@@ -226,34 +227,50 @@ body {
 }
 
 .session-tooltip {
-    position: absolute;
-    color: #ffffff;
+    color: #212121;
+    background-color: #e0e0e0;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     z-index: 9;
     display: inline-block;
-    font-size: 15px;
+    font-size: 16px;
     text-align: center;
-    padding: 5px 0;
-    border-radius: 2px;
-    width: 132px;
-}
-.session-add-tooltip {
-    top: 110px;
-    left: calc(50% - 66px);
-    background-color: #212121;
-}
-.session-add-tooltip:before {
-    content: "";
+    border-radius: 17px;
+    padding: 7px 20px;
+    width: 142px;
     position: absolute;
-    top: -16px;
-    left: 58px;
-    border: solid 8px transparent;
-    border-bottom-color: #212121;
+    bottom: 8px;
+    right: -184px;
+    transition: right 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
 }
-.session-remove-tooltip {
-    bottom: 6px;
-    right: 4px;
-    background-color: #d32f2f;
+.session-tooltip.session-tooltip-show {
+    transition: right 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
+    right: 14px;
+}
+.tooltip-close {
+    position: absolute;
+    top: 5px;
+    right: 3px;
+    color: #757575  ;
+}
+.session-tooltip:hover .tooltip-close {
+    color: #212121;
+}
+.session-tooltip.second-tooltip {
+    bottom: 49px;
+}
+.tooltip-number {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #e0e0e0;
+    background-color: #757575;
+    position: absolute;
+    top: 7px;
+    left: 5px;
+}
+.tooltip-with-counter .tooltip-number {
+    display: block;
 }
 /* --------------------------- */
 
