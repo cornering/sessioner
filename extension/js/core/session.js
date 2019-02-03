@@ -14,7 +14,7 @@ class Session {
     return new Promise(resolve => {
       // get sessions list from storage
       chrome.storage.local.get("sessions", storage => {
-        this.allSessions = storage.sessions ? storage.sessions.reverse() : [];
+        this.allSessions = storage.sessions ? storage.sessions : [];
         resolve();
       });
     });
@@ -32,8 +32,10 @@ class Session {
     
     // move updated session to top of sessions if it's exists
     let sessionIndex = this.allSessions.indexOf(name);
-    if(sessionIndex !== -1) this.allSessions.splice(sessionIndex, 1);
-    setData.sessions = [...this.allSessions, name];
+    if(sessionIndex !== -1) {
+      this.allSessions.splice(sessionIndex, 1);
+    }
+    setData.sessions = [name, ...this.allSessions];
     
     // to provide dynamic session name
     // session_ prefix added to avoid extension configs overwriting
