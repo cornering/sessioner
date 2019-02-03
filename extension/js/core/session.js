@@ -110,7 +110,6 @@ class Session {
   }
 }
 
-//TODO add remove and clear functions
-//TODO save tabs count and index inside sessions list object
+//TODO !think save tabs count and index inside sessions list object
 
 const session = new Session();

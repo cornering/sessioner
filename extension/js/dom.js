@@ -218,13 +218,12 @@ class Dom {
           this.toggleTooltip(this._sessionRemoveTooltip);
         });
         break;
-      case editAction:
-        //TODO editAction
-        //TODO deprecated action
+      /*case editAction:
+        // deprecated action
         console.log('--------------------');
         console.log('edit!');
         console.log('--------------------');
-        break;
+        break;*/
       default:
         // open new session
         session.openSession(element.getAttribute("session-name")).then(() => {
