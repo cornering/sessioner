@@ -30,11 +30,13 @@ class Session {
     // building set data
     const setData = {};
     
-    // move updated session to top of sessions if it's exists
+    // detect if session with such name is already exists
     let sessionIndex = this.allSessions.indexOf(name);
-    if(sessionIndex !== -1) {
-      this.allSessions.splice(sessionIndex, 1);
-    }
+    let updated = (sessionIndex !== -1);
+    
+    // remove existing session from list and
+    if(updated) this.allSessions.splice(sessionIndex, 1);
+    // add session name at the start
     setData.sessions = [name, ...this.allSessions];
     
     // to provide dynamic session name
@@ -56,7 +58,7 @@ class Session {
       chrome.storage.local.set(setData, () => {
         // push session name to list after success, if new session added
         this.allSessions.unshift(name);
-        resolve();
+        resolve(updated);
       });
     });
   }

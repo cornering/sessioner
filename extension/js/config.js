@@ -25,10 +25,12 @@ const config = {
     sessionTooltip: "session-tooltip",
     sessionAddTooltip: "session-add-tooltip",
     sessionRemoveTooltip: "session-remove-tooltip",
+    sessionUpdateTooltip: "session-update-tooltip",
     showTooltipClass: "session-tooltip-show",
-    secondTooltip: "second-tooltip",
     tooltipWithCounter: "tooltip-with-counter",
     tooltipNumber: "tooltip-number",
+    // used for numbers manipulation, to show tooltip in right place and don't overflow other ones
+    nthTooltip: ["", "second-tooltip", "third-tooltip"],
     
     tabListContainer: "tab-list-container",
     tabListUl: "tab-list",

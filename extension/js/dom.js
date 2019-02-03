@@ -17,6 +17,7 @@ class Dom {
     // tooltip
     this._sessionAddTooltip = document.getElementById(config.elements.sessionAddTooltip);
     this._sessionRemoveTooltip = document.getElementById(config.elements.sessionRemoveTooltip);
+    this._sessionUpdateTooltip = document.getElementById(config.elements.sessionUpdateTooltip);
 
     // body and html
     this._html = document.documentElement;
@@ -177,14 +178,15 @@ class Dom {
   }
   
   // thinks to do after session save
-  saveSessionCallback() {
+  saveSessionCallback(updated) {
     // update sessions list
     this.setSessionList(session.getAll);
     // move popup view to default card
     document.getElementById("wrapper").className = "wrapper default";
     this.resizePopup();
-    // show and hide session added tooltip
-    this.toggleTooltip(this._sessionAddTooltip);
+    // show tooltip, update or add tooltip, depends on `updated`
+    if(updated) this.toggleTooltip(this._sessionUpdateTooltip);
+    else this.toggleTooltip(this._sessionAddTooltip);
   }
   
   // toggle select all tabs button state
@@ -232,21 +234,17 @@ class Dom {
   }
   
   toggleTooltip(element) {
-    // select list of shown tooltips
-    const shownTooltips = document.getElementsByClassName(config.elements.showTooltipClass);
-
-    // check if one of tooltips are showed
-    if(shownTooltips.length) {
-      if(shownTooltips.length === 2 || shownTooltips[0].id === element.id) {
-        // if same tooltip is showed just add number to it
-        element.childNodes[1].innerHTML = ++element.childNodes[1].innerHTML;
-        element.classList.add(config.elements.tooltipWithCounter);
-      } else if(!shownTooltips[0].classList.contains(config.elements.secondTooltip)){
-        // if other tooltip is showed add this one behind them
-        element.classList.add(config.elements.secondTooltip);
-      }
+    // detect if current tooltip is already shown
+    if(element.classList.contains(config.elements.showTooltipClass)) {
+      // add a count in tooltip counter and show it
+      element.childNodes[1].innerHTML = ++element.childNodes[1].innerHTML;
+      element.classList.add(config.elements.tooltipWithCounter);
+    } else {
+      // select list of shown tooltips
+      const shownTooltips = document.getElementsByClassName(config.elements.showTooltipClass);
+      // add the nth class to tooltip to dont overflow other ones
+      if(shownTooltips.length) element.classList.add(config.elements.nthTooltip[shownTooltips.length]);
     }
-    //TODO work with tooltip sizes
     
     // show tooltip using class
     element.classList.add(config.elements.showTooltipClass);
@@ -254,10 +252,8 @@ class Dom {
     const counter = +element.childNodes[1].innerHTML;
     setTimeout(() => {
       if(counter !== +element.childNodes[1].innerHTML) return;
-      // reset tooltip counter
-      element.childNodes[1].innerHTML = 0;
-      // reset and hide tooltip
-      element.className = config.elements.sessionTooltip;
+      // hide tooltip
+      element.classList.remove(config.elements.showTooltipClass);
     }, config.tooltipToggleTimeOut);
   }
   
@@ -266,12 +262,23 @@ class Dom {
     const element = target.classList.contains(config.elements.sessionTooltip) ? target : target.parentNode;
     
     // check if tooltip has shown
-    if(element.classList.contains(config.elements.showTooltipClass)) {
-      // reset tooltip counter
-      element.childNodes[1].innerHTML = 0;
-      // reset and hide tooltip
-      element.className = config.elements.sessionTooltip;
-    }
+    if(!element.classList.contains(config.elements.showTooltipClass)) return;
+    
+    // hide tooltip
+    element.classList.remove(config.elements.showTooltipClass);
+  }
+  
+  resetTooltip(target) {
+    // select tooltip container
+    const element = target.classList.contains(config.elements.sessionTooltip) ? target : target.parentNode;
+  
+    // check if tooltip is hidden
+    if(element.classList.contains(config.elements.showTooltipClass)) return;
+  
+    // reset tooltip counter
+    element.childNodes[1].innerHTML = 1;
+    // reset tooltip
+    element.className = config.elements.sessionTooltip;
   }
 }
 

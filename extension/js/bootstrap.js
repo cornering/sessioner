@@ -65,11 +65,12 @@ DOM.setListenerToElement(config.elements.saveSessionButton, Dom.SELECTION.id, "c
   DOM.setSessionName(document.getElementById(config.elements.saveSessionInput).value);
   
   const tabsData = tab.getTabsData(DOM.selectedTabs);
-  session.saveSession(tabsData, DOM.sessionName).then(() => {
-    DOM.saveSessionCallback();
-  });
+  session.saveSession(tabsData, DOM.sessionName).then(updated => DOM.saveSessionCallback(updated));
 });
 
+// select/deselect all tabs for saving in new session
 DOM.setListenerToElement(config.elements.tabSelectAll, Dom.SELECTION.id, "click", () => DOM.toggleSelectAll());
 
+// hide tooltip on click and reset tooltip every time after hide animation ends
 DOM.setListenerToElement(config.elements.sessionTooltip, Dom.SELECTION.class, "click", e => DOM.hideTooltip(e.target));
+DOM.setListenerToElement(config.elements.sessionTooltip, Dom.SELECTION.class, "transitionend", e => DOM.resetTooltip(e.target));
