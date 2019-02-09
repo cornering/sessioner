@@ -1,7 +1,6 @@
 /**
  * Created by David Nazaryan on 10/28/2018
  */
-'use strict';
 
 // to save all system variables (like element ID's) in one place
 const config = {
@@ -51,17 +50,19 @@ const config = {
     saveSessionButton: "save-session",
     tabSelectAll: "tab-select-all",
     
-    lightningSwitcher: "lightning-switcher"
+    settingsContainer: "settings-container",
+    lightningSwitcher: "lightning-switcher",
+    lightningSessionInput: "lightning-session-name"
   },
   defaultFaviconUrl: "img/default-favicon.png",
   tooltipToggleTimeOut: 5000,
   
   defaultPreferences: {
     lightningMode: false,
-    quickSaveDefaultName: "Quicksave",
-    addDateToQuickSaveName: true
+    lightningSaveDefaultName: "Quicksave",
+    addDateToLightningSaveName: true
   },
   
   // to restrict permissions update
-  booleanPreferences: ["lightningMode"]
+  booleanPreferences: ["lightningMode", "addDateToLightningSaveName"]
 };

@@ -1,7 +1,6 @@
 /**
  * Created by David Nazaryan on 10/28/2018
  */
-'use strict';
 
 class Dom {
   constructor() {
@@ -40,7 +39,9 @@ class Dom {
     this._tabSelectAll = document.getElementById(config.elements.tabSelectAll);
     // lightning switcher(checkbox)
     this._lightningSwitcher = document.getElementById(config.elements.lightningSwitcher);
-    
+    // lightning mode session default name input
+    this._lightningSessionInput = document.getElementById(config.elements.lightningSessionInput);
+  
     // cards status
     this.cardsLock = {
       "new-session": false,
@@ -295,7 +296,13 @@ class Dom {
   }
   
   syncLightningSwitcher() {
+    // sync lightning mode switcher with localstorage data
     this._lightningSwitcher.checked = menu.preferences.lightningMode;
+  }
+  
+  syncSettings() {
+    // sync lightning mode default name with localstorage data
+    this._lightningSessionInput.value = menu.preferences.lightningSaveDefaultName;
   }
 }
 

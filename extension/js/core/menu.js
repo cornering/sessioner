@@ -1,7 +1,6 @@
 /**
  * Created by David Nazaryan on 2/3/2019
  */
-'use strict';
 
 class Menu {
   constructor() {
@@ -17,6 +16,10 @@ class Menu {
       chrome.storage.local.get(config.menuStorage.preferences, storage => {
         // merge preferences storage with default preferences
         this.preferences = {...config.defaultPreferences, ...storage.preferences};
+        
+        console.log('####################');
+        console.log(this.preferences );
+        console.log('####################');
         
         resolve();
       });
@@ -43,10 +46,10 @@ class Menu {
     });
   }
   
-  getQuickSessionName() {
-    // if addDateToQuickSaveName turned off just return default name
-    if(!this.preferences.addDateToQuickSaveName) {
-      return this.preferences.quickSaveDefaultName;
+  getLightningSessionName() {
+    // if addDateToLightningSaveName turned off just return default name
+    if(!this.preferences.addDateToLightningSaveName) {
+      return this.preferences.lightningSaveDefaultName;
     }
     
     // get today's date
@@ -59,8 +62,10 @@ class Menu {
     if (mm < 10) mm = "0" + mm;
   
     // return default name with today's date
-    return this.preferences.quickSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
+    return this.preferences.lightningSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
   }
 }
+
+//TODO use modeIndex and array to save different settings for different names
 
 const menu = new Menu();

@@ -31,6 +31,16 @@
             </button>
           </div>
         </div>
+        <div class="settings-container loading">
+          <div class="material-input-container lightning-name-container">
+            <input id="lightning-session-name" type="text" class="material-input" placeholder="lightningsave">
+            <label class="material-input-border" for="lightning-session-name"></label>
+            <span class="material-input-label">Default session name</span>
+          </div>
+          <div class="loader mdl-color--grey-50">
+            <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
+          </div>
+        </div>
         <!-- TODO make menu -->
       </section>
       <section id="default-card" class="card default-card">
@@ -39,7 +49,7 @@
             class="mdl-button mdl-button--raised mdl-button--colored mdl-color--blue-500 toggle-card"
           >add new session</button>
           <div class="lightning-switch-container">
-            <label title="quick mode" class="lightning-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
+            <label title="lightning mode" class="lightning-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
               <input id="lightning-switcher" type="checkbox" class="lightning-switch mdl-switch__input">
             </label>
           </div>
@@ -81,7 +91,7 @@
             <div class="pull-right button-horizontal-border"></div>
           </div>
           <div class="pull-right new-session-container">
-            <input type="text" placeholder=" session name" id="session-name" class="new-session-input">
+            <input id="session-name" type="text" class="new-session-input" placeholder=" session name">
             <button title="save session" card="default" id="save-session" class="mdl-button mdl-button--fab mdl-color--blue-500 pull-right circle-button session-save" disabled>
               <i class="material-icons">save_alt</i>
             </button>

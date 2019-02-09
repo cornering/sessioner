@@ -1,7 +1,6 @@
 /**
  * Created by David Nazaryan on 10/28/2018
  */
-'use strict';
 
 // sync the list of saved sessions
 session.syncSessionList().then(() => {
@@ -18,6 +17,15 @@ session.syncSessionList().then(() => {
 menu.syncPreferences().then(() => {
   // set lightning mode switcher
   DOM.syncLightningSwitcher();
+  // sync all settings in settings card
+  DOM.syncSettings();
+  // turn off settings card loading
+  DOM.toggleLoading(
+    config.prefixes.class,
+    config.elements.settingsContainer,
+    false
+  );
+  DOM.resizePopup();
 });
 
 // show current window tabs list on new-session button click
@@ -26,8 +34,8 @@ DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "cl
   if(menu.preferences.lightningMode) {
     // sync tabs
     tab.setTabs().then(() => {
-      // quickly save them inside session using same function
-      session.saveSession(tab.allTabs, menu.getQuickSessionName(), true).then(() => DOM.saveSessionCallback());
+      // lightningly save them inside session using same function
+      session.saveSession(tab.allTabs, menu.getLightningSessionName(), true).then(() => DOM.saveSessionCallback());
     });
   } else {
     // hide tab list container data and show loader
@@ -95,4 +103,15 @@ DOM.setListenerToElement(config.elements.lightningSwitcher, Dom.SELECTION.id, "c
   // lock/unlock new session card
   DOM.cardsLock["new-session"] = e.target.checked;
   menu.updatePreference("lightningMode");
+});
+
+DOM.setListenerToElement(config.elements.lightningSessionInput, Dom.SELECTION.id, "blur", e => {
+  if(e.target.value === menu.preferences.lightningSaveDefaultName) return;
+  menu.updatePreference("lightningSaveDefaultName", e.target.value);
+});
+
+// fire event on every key press
+document.addEventListener("keydown", e => {
+  // turn off tab button focus
+  if(e.code === "Tab") e.preventDefault();
 });

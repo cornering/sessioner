@@ -22,12 +22,14 @@ body {
 .material-icons.md-18 {
     font-size: 18px;
 }
+
 .pull-right {
     float: right;
 }
 .pull-left {
     float: left;
 }
+
 .circle-button {
     padding: 0;
     max-width: 0;
@@ -43,6 +45,60 @@ body {
 }
 .circle-button .material-icons {
     margin-bottom: 2px;
+}
+
+.material-input-container {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    border: none;
+    margin: 5px 0;
+    height: 44px;
+    min-width: 200px;
+    cursor: text;
+}
+.material-input-border {
+    display: flex;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    cursor: text;
+    transition: all .15s ease-in;
+}
+.material-input-container:focus-within .material-input-border {
+    border: 2px solid #673ab7;
+}
+.material-input-label {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+    background: #ffffff;
+    color: #757575;
+    padding: 0 6px;
+    font-size: 13px;
+    transition: all .15s ease-in;
+}
+.material-input-container:focus-within .material-input-label {
+    color: #673ab7;
+}
+.material-input {
+    width: calc(100% - 22px);
+    height: 26px;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 10px 11px 8px;
+    color: #212121;
+    font-size: 16px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    transition: all .15s ease-in;
 }
 /* --------------------------- */
 
@@ -66,7 +122,7 @@ body {
     margin: 0;
     padding: 0;
     width: 300px;
-    min-height: 180px;
+    min-height: 240px;
     overflow-x: hidden;
 }
 /* --------------------------- */
@@ -129,6 +185,7 @@ body {
 }
 .loading {
     position: relative;
+    min-height: 140px;
 }
 /* --------------------------- */
 
@@ -354,7 +411,8 @@ body {
     border: none;
     border-bottom: 1px solid rgba(0,0,0,.12);
     outline: none;
-    color: #424242;
+    color: #212121;
+    font-size: 16px;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     transition: all .25s ease;
 }
@@ -455,4 +513,15 @@ body {
 .tab-select-all .tab-deselect {display: none;}
 .tab-select-all.tab-deselect-all .tab-select {display: none;}
 .tab-select-all.tab-deselect-all .tab-deselect {display: inline;}
+/* --------------------------- */
+
+/* settings container */
+.settings-container {
+    padding: 10px;
+    text-align: center;
+}
+
+.lightning-name-container {
+    width: 220px;
+}
 /* --------------------------- */
