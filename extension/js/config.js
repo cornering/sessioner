@@ -8,6 +8,15 @@ const config = {
   prefixes: {
     id: "#", class: ".", tab: ""
   },
+  sessionsStorage: {
+    list: "sessions",
+    prefix: "session_"
+  },
+  
+  menuStorage: {
+    preferences: "preferences"
+  },
+  
   elements: {
     drag: "drag",
     loading: "loading",
@@ -40,8 +49,19 @@ const config = {
     tabCheckboxImg: "tab-checkbox-img",
     saveSessionInput: "session-name",
     saveSessionButton: "save-session",
-    tabSelectAll: "tab-select-all"
+    tabSelectAll: "tab-select-all",
+    
+    lightningSwitcher: "lightning-switcher"
   },
   defaultFaviconUrl: "img/default-favicon.png",
-  tooltipToggleTimeOut: 5000
+  tooltipToggleTimeOut: 5000,
+  
+  defaultPreferences: {
+    lightningMode: false,
+    quickSaveDefaultName: "Quicksave",
+    addDateToQuickSaveName: true
+  },
+  
+  // to restrict permissions update
+  booleanPreferences: ["lightningMode"]
 };

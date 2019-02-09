@@ -23,7 +23,7 @@
       <!-- each card must have class -card suffix -->
       <section class="card settings-card">
         <div class="actions-container">
-          <span class="menu-text">Menu</span>
+          <span class="menu-text">Settings</span>
           <div class="pull-right button-container">
             <div class="button-horizontal-border"></div>
             <button title="back" card="default" class="mdl-button pull-right circle-button toggle-card">
@@ -38,10 +38,9 @@
           <button id="new-session" card="new-session"
             class="mdl-button mdl-button--raised mdl-button--colored mdl-color--blue-500 toggle-card"
           >add new session</button>
-          <!-- TODO quick mode action functional -->
-          <div class="quick-switch-container">
-            <label title="quick mode" class="quick-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
-              <input type="checkbox" class="quick-switch mdl-switch__input">
+          <div class="lightning-switch-container">
+            <label title="quick mode" class="lightning-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
+              <input id="lightning-switcher" type="checkbox" class="lightning-switch mdl-switch__input">
             </label>
           </div>
           <div class="pull-right button-container">
@@ -106,6 +105,7 @@
   <!-- Load config file at first -->
   <script src="../js/config.js"></script>
   <!-- Load classes -->
+  <script src="../js/core/menu.js"></script>
   <script src="../js/core/tab.js"></script>
   <script src="../js/core/session.js"></script>
   <script src="../js/dom.js"></script>

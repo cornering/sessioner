@@ -13,7 +13,7 @@ class Session {
     // wrapping storage.sync callback function into promise
     return new Promise(resolve => {
       // get sessions list from storage
-      chrome.storage.local.get("sessions", storage => {
+      chrome.storage.local.get(config.sessionsStorage.list, storage => {
         this.allSessions = storage.sessions ? storage.sessions : [];
         resolve();
       });
@@ -26,7 +26,7 @@ class Session {
   }
   
   // save tabs in chrome local storage
-  saveSession(tabs, name) {
+  saveSession(tabs, name, noOverwriteMode) {
     // building set data
     const setData = {};
     
@@ -35,13 +35,26 @@ class Session {
     let updated = (sessionIndex !== -1);
     
     // remove existing session from list and
-    if(updated) this.allSessions.splice(sessionIndex, 1);
+    if(updated) {
+      // add number to session name if no overwrite mode is active
+      if(noOverwriteMode) {
+        let i = 1;
+        const originalName = name;
+        name = name+` (${i})`;
+        // add number while session exists
+        while(this.allSessions.indexOf(name) !== -1) {
+          name = originalName+` (${++i})`;
+        }
+      } else {
+        this.allSessions.splice(sessionIndex, 1);
+      }
+    }
     // add session name at the start
     setData.sessions = [name, ...this.allSessions];
     
     // to provide dynamic session name
-    // session_ prefix added to avoid extension configs overwriting
-    setData["session_"+name] = {
+    // session_(config.sessionsStorage.prefix) prefix added to avoid extension configs overwriting
+    setData[config.sessionsStorage.prefix+name] = {
       tabs: tabs.map(t => {
         return {
           index: t.index,
@@ -68,10 +81,10 @@ class Session {
     // wrapping storage.local.get callback function into promise
     return new Promise(resolve => {
       // getting session from chrome local storage
-      chrome.storage.local.get("session_"+name, storage => {
+      chrome.storage.local.get(config.sessionsStorage.prefix+name, storage => {
         // sort pinned and not pinned tabs
         const pinnedTabs = [], initTabUrls = [];
-        storage["session_"+name].tabs.forEach(t => {
+        storage[config.sessionsStorage.prefix+name].tabs.forEach(t => {
           if(t.pinned) pinnedTabs.push(t);
           else initTabUrls.push(t.url);
         });
@@ -104,7 +117,7 @@ class Session {
     return Promise.all([
       new Promise(resolve => {
         chrome.storage.local.set({sessions:this.allSessions}, () => resolve());
-        chrome.storage.local.remove("session_"+name, () => resolve());
+        chrome.storage.local.remove(config.sessionsStorage.prefix+name, () => resolve());
       })
     ]);
   }

@@ -38,6 +38,15 @@ class Dom {
     this._saveInput = document.getElementById(config.elements.saveSessionInput);
     // all tabs element
     this._tabSelectAll = document.getElementById(config.elements.tabSelectAll);
+    // lightning switcher(checkbox)
+    this._lightningSwitcher = document.getElementById(config.elements.lightningSwitcher);
+    
+    // cards status
+    this.cardsLock = {
+      "new-session": false,
+      "settings": false,
+      "default": false
+    };
   }
   
   static get SELECTION() {
@@ -60,9 +69,14 @@ class Dom {
   }
   
   toggleCard(target) {
+    // getting right card class for button
     const wrapper_class = target.getAttribute("card") || target.parentNode.getAttribute("card");
     if (!wrapper_class) return;
+    
+    // prevent action if card locked
+    if(this.cardsLock[wrapper_class]) return;
   
+    // moving wrapper to right card using css classes
     this._wrapper.className = "wrapper " + wrapper_class;
     this.resizePopup();
   }
@@ -278,6 +292,10 @@ class Dom {
     element.childNodes[1].innerHTML = 1;
     // reset tooltip
     element.className = config.elements.sessionTooltip;
+  }
+  
+  syncLightningSwitcher() {
+    this._lightningSwitcher.checked = menu.preferences.lightningMode;
   }
 }
 
