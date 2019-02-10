@@ -6,7 +6,6 @@ class Menu {
   constructor() {
     this.settings = {...config.defaultSettings};
   }
-  //TODO make menu with configs
   
   static get MODE() {
     return {
@@ -77,7 +76,5 @@ class Menu {
     return this.settings.lightningSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
   }
 }
-
-//TODO use modeIndex and array to save different settings for different names
 
 const menu = new Menu();

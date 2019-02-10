@@ -38,7 +38,7 @@ const config = {
     tooltipWithCounter: "tooltip-with-counter",
     tooltipNumber: "tooltip-number",
     // used for numbers manipulation, to show tooltip in right place and don't overflow other ones
-    nthTooltip: ["", "second-tooltip", "third-tooltip"],
+    nthTooltip: ["first-tooltip", "second-tooltip", "third-tooltip"],
     
     tabListContainer: "tab-list-container",
     tabListUl: "tab-list",

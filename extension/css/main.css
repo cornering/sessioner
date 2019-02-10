@@ -297,7 +297,6 @@ body {
     border-radius: 17px;
     padding: 7px 30px 7px 10px;
     position: absolute;
-    bottom: 8px;
     right: -184px;
     transition: right 1s cubic-bezier(0.680, -0.550, 0.265, 1.550);
 }
@@ -313,6 +312,9 @@ body {
 }
 .session-tooltip:hover .tooltip-close {
     color: #212121;
+}
+.session-tooltip.first-tooltip {
+    bottom: 8px;
 }
 .session-tooltip.second-tooltip {
     bottom: 49px;

@@ -125,6 +125,4 @@ class Session {
   }
 }
 
-//TODO !think save tabs count and index inside sessions list object
-
 const session = new Session();

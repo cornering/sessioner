@@ -257,11 +257,14 @@ class Dom {
       element.childNodes[1].innerHTML = ++element.childNodes[1].innerHTML;
       element.classList.add(config.elements.tooltipWithCounter);
     } else {
-      // select list of shown tooltips
-      const shownTooltips = document.getElementsByClassName(config.elements.showTooltipClass);
       // add the nth class to tooltip to dont overflow other ones
-      if(shownTooltips.length) element.classList.add(config.elements.nthTooltip[shownTooltips.length]);
-      //TODO sometimes its overload other tooltip
+      config.elements.nthTooltip.some(nth => {
+        if(!document.getElementsByClassName(nth).length) {
+          element.classList.add(nth);
+          return true;
+        }
+        return false;
+      });
     }
     
     // show tooltip using class

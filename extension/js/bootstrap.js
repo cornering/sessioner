@@ -34,8 +34,8 @@ DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "cl
   if(menu.settings.lightningMode) {
     // sync tabs
     tab.setTabs().then(() => {
-      // lightningly save them inside session using same function
-      session.saveSession(tab.allTabs, menu.getLightningSessionName()).then(() => DOM.saveSessionCallback());
+      // lightning save them inside session using same function
+      session.saveSession(tab.allTabs, menu.getLightningSessionName()).then(updated => DOM.saveSessionCallback(updated));
     });
   } else {
     // hide tab list container data and show loader
@@ -100,6 +100,7 @@ DOM.setListenerToElement(config.elements.sessionTooltip, Dom.SELECTION.class, "t
 
 // detect lightning mode switcher change
 DOM.setListenerToElement(config.elements.lightningSwitcher, Dom.SELECTION.id, "change", e => {
+  // TODO sometimes it stop moving in process
   // lock/unlock new session card
   DOM.cardsLock["new-session"] = e.target.checked;
   menu.updateSetting("lightningMode", e.target.checked);
