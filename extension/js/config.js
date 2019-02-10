@@ -76,7 +76,7 @@ const config = {
     {
       id: "noOverwriteMode",
       title: "No overwrite mode",
-      description: "add number after new session name instead of overwriting the old one",
+      description: "Add number after new session name instead of overwriting the old one",
       standard: true,
       lightning: true,
     }, {

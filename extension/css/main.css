@@ -559,13 +559,11 @@ body {
     text-align: left;
 }
 .boolean-settings-list li {
+    overflow-y: hidden;
     height: 24px;
     padding: 7px;
     list-style-type: none;
     border-bottom: 1px solid #e5e5e5;
-    transition-duration: .28s;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-property: background-color;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 .boolean-settings-list li.setting-collapsing {
@@ -590,20 +588,21 @@ body {
     white-space: normal;
 }
 .boolean-settings-list li.setting-collapsed {
-    height: auto;
+    height: 105px;
 }
-.boolean-settings-list li .setting-description,
 .boolean-settings-list li .keyboard-arrow-up,
 .boolean-settings-list li.setting-collapsed .keyboard-arrow-down {
     display: none
 }
-.boolean-settings-list li.setting-collapsed .setting-description,
 .boolean-settings-list li .keyboard-arrow-down,
 .boolean-settings-list li.setting-collapsed .keyboard-arrow-up {
     display: inline;
 }
-.boolean-settings-list li.setting-collapsed .setting-description {
+
+.boolean-settings-list li .setting-description {
     display: inline-block;
+}
+.boolean-settings-list li.setting-collapsed .setting-description {
     width: 180px;
     font-size: 13px;
     color: #9e9e9e;

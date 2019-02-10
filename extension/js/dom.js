@@ -261,6 +261,7 @@ class Dom {
       const shownTooltips = document.getElementsByClassName(config.elements.showTooltipClass);
       // add the nth class to tooltip to dont overflow other ones
       if(shownTooltips.length) element.classList.add(config.elements.nthTooltip[shownTooltips.length]);
+      //TODO sometimes its overload other tooltip
     }
     
     // show tooltip using class

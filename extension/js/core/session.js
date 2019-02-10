@@ -25,9 +25,12 @@ class Session {
   }
   
   // save tabs in chrome local storage
-  saveSession(tabs, name, noOverwriteMode) {
+  saveSession(tabs, name) {
     // building set data
     const setData = {};
+    
+    // detect overwrite setting for current mode
+    const noOverwriteMode = menu.settings.noOverwriteMode[(menu.settings.lightningMode) ? 1 : 0];
     
     // detect if session with such name is already exists
     let sessionIndex = this.allSessions.indexOf(name);

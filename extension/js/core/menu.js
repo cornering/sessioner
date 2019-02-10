@@ -14,6 +14,7 @@ class Menu {
       lightning: 1
     };
   }
+  
   // get configs from local storage
   syncSettings() {
     // wrapping storage.sync callback function into promise
@@ -33,7 +34,7 @@ class Menu {
   }
   
   updateSetting(setting, value, doNotSave) {
-    if(typeof this.settings[setting] === "object") throw new Error("use updateModeSetting for update");
+    if(typeof this.settings[setting] === "object") throw new Error("Use updateModeSetting for update");
     // just toggle boolean if `value` is not provided
     this.settings[setting] = value;
   
@@ -41,7 +42,7 @@ class Menu {
   }
   
   updateModeSetting(setting, value, mode, doNotSave) {
-    if(Menu.MODE[mode] === undefined) throw new Error("wrong mode value");
+    if(Menu.MODE[mode] === undefined) throw new Error("Wrong mode value");
   
     // update setting in single mode
     this.settings[setting][Menu.MODE[mode]] = value;

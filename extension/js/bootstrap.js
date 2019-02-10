@@ -35,7 +35,7 @@ DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "cl
     // sync tabs
     tab.setTabs().then(() => {
       // lightningly save them inside session using same function
-      session.saveSession(tab.allTabs, menu.getLightningSessionName(), true).then(() => DOM.saveSessionCallback());
+      session.saveSession(tab.allTabs, menu.getLightningSessionName()).then(() => DOM.saveSessionCallback());
     });
   } else {
     // hide tab list container data and show loader
