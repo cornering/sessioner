@@ -554,7 +554,7 @@ body {
 
 .boolean-settings-list {
     width: 275px;
-    margin: 15px 0;
+    margin: 15px 0 25px;
     padding: 0;
     border: 1px solid #e5e5e5;
     border-radius: 4px;
@@ -567,6 +567,9 @@ body {
     list-style-type: none;
     border-bottom: 1px solid #e5e5e5;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.boolean-settings-list li:last-of-type {
+    border-bottom: none;
 }
 .boolean-settings-list li.setting-collapsing {
     cursor: pointer;
@@ -620,43 +623,18 @@ body {
     padding-left: 0;
     padding-right: 8px;
 }
-/* --------------------------- */
 
-/* Old setting table */
-.settings-table td, .settings-table th {
-    padding: 12px 36px 12px 12px !important;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+.settings-separator {
+    margin: 15px;
+    border-color: #e5e5e5;
 }
-.settings-table td:last-of-type, .settings-table th:last-of-type {
-    padding: 12px 18px 12px 24px !important;
+
+.reset-message {
+    line-height: 36px;
+    padding-left: 10px;
 }
-.settings-table td:first-of-type, .settings-table th:first-of-type {
-    padding: 12px 24px 12px 12px !important;
-    border-right: 1px solid #e5e5e5;
-}
-.settings-table td > .no-setting {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-}
-.settings-table td > label {
-    margin: 0 -4px 0 4px;
-}
-.settings-table td > .setting-name {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    width: 100px;
-    overflow-wrap: break-word;
-    white-space: normal;
-}
-.settings-table th > .settings-header {
-    text-align: left;
-    padding: 0 0 8px 0;
-    margin: 0;
-    line-height: 24px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #212121;
+.danger-setting-button:active {
+    background-color: #ff5252;
+    color: #ffffff;
 }
 /* --------------------------- */

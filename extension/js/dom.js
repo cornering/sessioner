@@ -222,7 +222,7 @@ class Dom {
   sessionAction(element, target) {
     // detect if remove icon clicked
     const removeAction = target.classList.contains("session-remove");
-    const editAction = target.classList.contains("session-edit");
+    // const editAction = target.classList.contains("session-edit");
     
     switch (true) {
       case removeAction:
@@ -250,6 +250,10 @@ class Dom {
   }
   
   toggleTooltip(element) {
+    // turn off tooltips setting
+    const turnOffTooltips = menu.settings.turnOffTooltips[(menu.settings.lightningMode) ? 1 : 0];
+    if(turnOffTooltips) return;
+    
     // detect if current tooltip is already shown
     if(element.classList.contains(config.elements.showTooltipClass)) {
       // add a count in tooltip counter and show it

@@ -67,8 +67,9 @@ const config = {
     lightningSaveDefaultName: "Quicksave",
     // 1st element is for standard made 2nd is for lightning
     noOverwriteMode: [false, true],
+    turnOffTooltips: [false, true],
     // settings that can be applied to only one mode
-    addDateToLightningName: true,
+    addDateToLightningName: true
   },
   
   // object ot generate list of settings
@@ -84,6 +85,11 @@ const config = {
       title: "Add date in quick save",
       lightning: true,
       single: true
+    }, {
+      id: "turnOffTooltips",
+      title: "Turn off tooltips",
+      standard: true,
+      lightning: true
     }
   ]
 };
