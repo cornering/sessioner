@@ -11,7 +11,6 @@ class Dom {
     // default favicon used for pages that haven't their own favicon
     // chrome doesn't provide system pages favicon URL
     this._defaultFavicon = chrome.extension.getURL(config.defaultFaviconUrl);
-    //TODO get system and extension favicons
   
     // tooltip
     this._sessionAddTooltip = document.getElementById(config.elements.sessionAddTooltip);

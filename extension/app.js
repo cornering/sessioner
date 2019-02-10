@@ -29,5 +29,3 @@ chrome.contextMenus.onClicked.addListener(info => {
     chrome.tabs.create({url: chrome.extension.getURL("html/index.html#window")});
   }
 });
-
-//TODO add jsDoc
