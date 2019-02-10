@@ -62,9 +62,7 @@ class Menu {
   
   getLightningSessionName() {
     // if addDateToLightningName turned off just return default name
-    if(!this.settings.addDateToLightningName) {
-      return this.settings.lightningSaveDefaultName;
-    }
+    if(!this.settings.addDateToLightningName) return this.settings.lightningSaveDefaultName;
     
     // get today's date
     let today = new Date();
