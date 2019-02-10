@@ -13,7 +13,7 @@ const config = {
   },
   
   menuStorage: {
-    preferences: "preferences"
+    settings: "settings"
   },
   
   elements: {
@@ -52,17 +52,38 @@ const config = {
     
     settingsContainer: "settings-container",
     lightningSwitcher: "lightning-switcher",
-    lightningSessionInput: "lightning-session-name"
+    lightningSessionInput: "lightning-session-name",
+    booleanSettingsListUl: "boolean-settings-list",
+    settingListCollapsing: "setting-collapsing",
+    settingListCollapsed: "setting-collapsed",
+    settingCheckbox: "setting-checkbox",
+    lightningCheckbox: "lightning-checkbox"
   },
   defaultFaviconUrl: "img/default-favicon.png",
   tooltipToggleTimeOut: 5000,
   
-  defaultPreferences: {
+  defaultSettings: {
     lightningMode: false,
     lightningSaveDefaultName: "Quicksave",
-    addDateToLightningSaveName: true
+    // 1st element is for standard made 2nd is for lightning
+    noOverwriteMode: [false, true],
+    // settings that can be applied to only one mode
+    addDateToLightningName: true,
   },
   
-  // to restrict permissions update
-  booleanPreferences: ["lightningMode", "addDateToLightningSaveName"]
+  // object ot generate list of settings
+  settingsList: [
+    {
+      id: "noOverwriteMode",
+      title: "No overwrite mode",
+      description: "add number after new session name instead of overwriting the old one",
+      standard: true,
+      lightning: true,
+    }, {
+      id: "addDateToLightningName",
+      title: "Add date in quick save",
+      lightning: true,
+      single: true
+    }
+  ]
 };

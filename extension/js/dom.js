@@ -41,6 +41,8 @@ class Dom {
     this._lightningSwitcher = document.getElementById(config.elements.lightningSwitcher);
     // lightning mode session default name input
     this._lightningSessionInput = document.getElementById(config.elements.lightningSessionInput);
+    // boolean settings list
+    this._booleanSettingsListUl = document.getElementById(config.elements.booleanSettingsListUl);
   
     // cards status
     this.cardsLock = {
@@ -112,6 +114,7 @@ class Dom {
     });
     this._sessionListUl.innerHTML = listHtml;
     
+    // add events to generated elements
     [...document.getElementsByClassName(config.elements.sessionListItem)].forEach(
       element => element.addEventListener("click", e => this.sessionAction(element, e.target))
     );
@@ -297,12 +300,85 @@ class Dom {
   
   syncLightningSwitcher() {
     // sync lightning mode switcher with localstorage data
-    this._lightningSwitcher.checked = menu.preferences.lightningMode;
+    this._lightningSwitcher.checked = menu.settings.lightningMode;
   }
   
   syncSettings() {
     // sync lightning mode default name with localstorage data
-    this._lightningSessionInput.value = menu.preferences.lightningSaveDefaultName;
+    this._lightningSessionInput.value = menu.settings.lightningSaveDefaultName;
+    
+    // generate boolean settings list
+    let settingsListHtml = "";
+    // loop through boolean settings
+    config.settingsList.forEach(setting => {
+      // generating the list, UGLY way
+      settingsListHtml +=
+      `<li ${(setting.description ? `class="${config.elements.settingListCollapsing}"` : ``)}>` +
+        `${(setting.description ?
+          `<i class="material-icons keyboard-arrow-down">keyboard_arrow_down</i>` +
+          `<i class="material-icons keyboard-arrow-up">keyboard_arrow_up</i>`
+          : ``
+        )}` +
+        `<span class="setting-title">${setting.title}</span>` +
+        `<div class="setting-actions">` +
+          `${(setting.standard ?
+            `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">` +
+              `<input type="checkbox" class="mdl-checkbox__input ${config.elements.settingCheckbox}" setting="${setting.id}"` +
+              `${(setting.single ?
+                  (menu.settings[setting.id] ? ` checked ` : ``)
+                : (menu.settings[setting.id][0] ? ` checked ` : ``)
+              )}` +
+              `${(setting.single ? `single="true"` : ``)}` +
+              `>` +
+            `</label>`
+            : `<span class="no-setting">-</span>`
+              )}` +
+          `${(setting.lightning ?
+            `<label class="${config.elements.lightningCheckbox} mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">` +
+              `<input type="checkbox" class="mdl-checkbox__input ${config.elements.settingCheckbox}" setting="${setting.id}"` +
+              `${(setting.single ?
+                  (menu.settings[setting.id] ? ` checked ` : ``)
+                : (menu.settings[setting.id][1] ? ` checked ` : ``)
+              )}` +
+              `${(setting.single ? `single="true"` : ``)}` +
+              `>` +
+            `</label>`
+            : `<span class="no-setting">-</span>`
+          )}` +
+        `</div>` +
+        `${(setting.description ?
+          `<span class="setting-description">${setting.description}</span>`
+          : ``
+        )}` +
+      `</li>`
+    });
+    // update DOM
+    this._booleanSettingsListUl.innerHTML = settingsListHtml;
+  
+    // add collapse event
+    [...document.getElementsByClassName(config.elements.settingListCollapsing)].forEach(
+      element => element.addEventListener("click", () => this.toggleCollapseSetting(element))
+    );
+    
+    // add settings update event on checkboxes
+    [...document.getElementsByClassName(config.elements.settingCheckbox)].forEach(
+      element => element.addEventListener("change", () => this.updateSetting(element))
+    );
+  }
+  
+  toggleCollapseSetting(element) {
+    element.classList.toggle(config.elements.settingListCollapsed);
+    this.resizePopup();
+  }
+  
+  updateSetting(element) {
+    if(element.getAttribute("single")) {
+      menu.updateSetting(element.getAttribute("setting"), element.checked)
+    } else {
+      const mode = element.parentNode.classList.contains(config.elements.lightningCheckbox) ?
+        "lightning" : "standard";
+      menu.updateModeSetting(element.getAttribute("setting"), element.checked, mode)
+    }
   }
 }
 

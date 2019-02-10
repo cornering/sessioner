@@ -4,21 +4,27 @@
 
 class Menu {
   constructor() {
-    this.preferences = {...config.defaultPreferences};
+    this.settings = {...config.defaultSettings};
   }
   //TODO make menu with configs
   
+  static get MODE() {
+    return {
+      standard: 0,
+      lightning: 1
+    };
+  }
   // get configs from local storage
-  syncPreferences() {
+  syncSettings() {
     // wrapping storage.sync callback function into promise
     return new Promise(resolve => {
-      // get preferences from storage
-      chrome.storage.local.get(config.menuStorage.preferences, storage => {
-        // merge preferences storage with default preferences
-        this.preferences = {...config.defaultPreferences, ...storage.preferences};
+      // get settings from storage
+      chrome.storage.local.get(config.menuStorage.settings, storage => {
+        // merge settings storage with default settings
+        this.settings = {...config.defaultSettings, ...storage.settings};
         
         console.log('####################');
-        console.log(this.preferences );
+        console.log(this.settings );
         console.log('####################');
         
         resolve();
@@ -26,30 +32,37 @@ class Menu {
     });
   }
   
-  updatePreference(preference, value, doNotSave) {
-    // restrict not boolean type update if value is not provided
-    if (!value && config.booleanPreferences.indexOf(preference) === -1) return;
-  
+  updateSetting(setting, value, doNotSave) {
+    if(typeof this.settings[setting] === "object") throw new Error("use updateModeSetting for update");
     // just toggle boolean if `value` is not provided
-    this.preferences[preference] = value || !this.preferences[preference];
+    this.settings[setting] = value;
   
-    if (!doNotSave) this.savePreferences();
+    if (!doNotSave) this.saveSettings();
   }
   
-  // update preferences in localstorage
-  savePreferences() {
-    let updatePreferences = {};
-    updatePreferences[config.menuStorage.preferences] = this.preferences;
+  updateModeSetting(setting, value, mode, doNotSave) {
+    if(Menu.MODE[mode] === undefined) throw new Error("wrong mode value");
+  
+    // update setting in single mode
+    this.settings[setting][Menu.MODE[mode]] = value;
     
-    chrome.storage.local.set(updatePreferences, () => {
-      console.log("preferences updated");
+    if (!doNotSave) this.saveSettings();
+  }
+  
+  // update settings in localstorage
+  saveSettings() {
+    let updateSettings = {};
+    updateSettings[config.menuStorage.settings] = this.settings;
+    
+    chrome.storage.local.set(updateSettings, () => {
+      console.log("settings updated");
     });
   }
   
   getLightningSessionName() {
-    // if addDateToLightningSaveName turned off just return default name
-    if(!this.preferences.addDateToLightningSaveName) {
-      return this.preferences.lightningSaveDefaultName;
+    // if addDateToLightningName turned off just return default name
+    if(!this.settings.addDateToLightningName) {
+      return this.settings.lightningSaveDefaultName;
     }
     
     // get today's date
@@ -62,7 +75,7 @@ class Menu {
     if (mm < 10) mm = "0" + mm;
   
     // return default name with today's date
-    return this.preferences.lightningSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
+    return this.settings.lightningSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
   }
 }
 

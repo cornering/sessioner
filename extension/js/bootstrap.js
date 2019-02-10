@@ -14,7 +14,7 @@ session.syncSessionList().then(() => {
 });
 
 // get configs form storage
-menu.syncPreferences().then(() => {
+menu.syncSettings().then(() => {
   // set lightning mode switcher
   DOM.syncLightningSwitcher();
   // sync all settings in settings card
@@ -31,7 +31,7 @@ menu.syncPreferences().then(() => {
 // show current window tabs list on new-session button click
 DOM.setListenerToElement(config.elements.newSessionButton, Dom.SELECTION.id, "click", e => {
   // check if lightning mode enabled
-  if(menu.preferences.lightningMode) {
+  if(menu.settings.lightningMode) {
     // sync tabs
     tab.setTabs().then(() => {
       // lightningly save them inside session using same function
@@ -102,12 +102,12 @@ DOM.setListenerToElement(config.elements.sessionTooltip, Dom.SELECTION.class, "t
 DOM.setListenerToElement(config.elements.lightningSwitcher, Dom.SELECTION.id, "change", e => {
   // lock/unlock new session card
   DOM.cardsLock["new-session"] = e.target.checked;
-  menu.updatePreference("lightningMode");
+  menu.updateSetting("lightningMode", e.target.checked);
 });
 
 DOM.setListenerToElement(config.elements.lightningSessionInput, Dom.SELECTION.id, "blur", e => {
-  if(e.target.value === menu.preferences.lightningSaveDefaultName) return;
-  menu.updatePreference("lightningSaveDefaultName", e.target.value);
+  if(e.target.value === menu.settings.lightningSaveDefaultName) return;
+  menu.updateSetting("lightningSaveDefaultName", e.target.value);
 });
 
 // fire event on every key press
