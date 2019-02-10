@@ -100,10 +100,11 @@ DOM.setListenerToElement(config.elements.sessionTooltip, Dom.SELECTION.class, "t
 
 // detect lightning mode switcher change
 DOM.setListenerToElement(config.elements.lightningSwitcher, Dom.SELECTION.id, "change", e => {
-  // TODO sometimes it stop moving in process
   // lock/unlock new session card
-  DOM.cardsLock["new-session"] = e.target.checked;
-  menu.updateSetting("lightningMode", e.target.checked);
+  setTimeout(() => {
+    DOM.cardsLock["new-session"] = e.target.checked;
+    menu.updateSetting("lightningMode", e.target.checked);
+  });
 });
 
 DOM.setListenerToElement(config.elements.lightningSessionInput, Dom.SELECTION.id, "blur", e => {
