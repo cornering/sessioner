@@ -108,7 +108,7 @@ class Dom {
           `<span class="session-list-item-text">${sessionName}</span>` +
           //`<i class="session-update ${config.elements.drag} material-icons">update</i>` +
           //`<i class="session-edit ${config.elements.drag} material-icons">edit</i>` +
-          `<i class="session-remove ${config.elements.drag} material-icons">delete</i>` +
+          `<i title="delete" class="session-remove ${config.elements.drag} material-icons">delete</i>` +
         `</li>`;
     });
     this._sessionListUl.innerHTML = listHtml;
