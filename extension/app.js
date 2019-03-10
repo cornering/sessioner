@@ -15,11 +15,11 @@ chrome.runtime.onInstalled.addListener(() => {
         "title": "Open Extension in new tab",
         "contexts": ["browser_action"]
       });
+  
+      // clear storage
+      chrome.storage.local.clear();
     }
   });
-  
-  // clear storage
-  chrome.storage.local.clear();
 });
 
 // works on context menu item click
