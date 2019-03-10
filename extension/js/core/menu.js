@@ -22,11 +22,6 @@ class Menu {
       chrome.storage.local.get(config.menuStorage.settings, storage => {
         // merge settings storage with default settings
         this.settings = {...config.defaultSettings, ...storage.settings};
-        
-        console.log('####################');
-        console.log(this.settings );
-        console.log('####################');
-        
         resolve();
       });
     });
@@ -74,6 +69,13 @@ class Menu {
   
     // return default name with today's date
     return this.settings.lightningSaveDefaultName + " - " +mm+"/"+dd+"/"+yyyy;
+  }
+  
+  getModeSetting(setting) {
+    // return the setting it it's not mode-based config, or its single mode, it's an edge case
+    if(typeof this.settings[setting] !== 'object') return this.settings[setting];
+    // return setting value for current mode
+    return this.settings[setting][(this.settings.lightningMode) ? 1 : 0];
   }
 }
 

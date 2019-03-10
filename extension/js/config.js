@@ -69,7 +69,8 @@ const config = {
     noOverwriteMode: [false, true],
     turnOffTooltips: [false, true],
     // settings that can be applied to only one mode
-    addDateToLightningName: true
+    addDateToLightningName: true,
+    closeTabsOnCreate: [false, true]
   },
   
   // object ot generate list of settings
@@ -88,6 +89,11 @@ const config = {
     }, {
       id: "turnOffTooltips",
       title: "Turn off tooltips",
+      standard: true,
+      lightning: true
+    }, {
+      id: "closeTabsOnCreate",
+      title: "Close on session create",
       standard: true,
       lightning: true
     }

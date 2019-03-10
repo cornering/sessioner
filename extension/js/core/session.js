@@ -29,17 +29,14 @@ class Session {
     // building set data
     const setData = {};
     
-    // detect overwrite setting for current mode
-    const noOverwriteMode = menu.settings.noOverwriteMode[(menu.settings.lightningMode) ? 1 : 0];
-    
     // detect if session with such name is already exists
     let sessionIndex = this.allSessions.indexOf(name);
     let updated = (sessionIndex !== -1);
     
     // remove existing session from list and
     if(updated) {
-      // add number to session name if no overwrite mode is active
-      if(noOverwriteMode) {
+      // add number to session name if no noOverwriteMode is active for current mode
+      if(menu.getModeSetting("noOverwriteMode")) {
         let i = 1;
         const originalName = name;
         name = name+` (${i})`;
@@ -73,7 +70,12 @@ class Session {
       chrome.storage.local.set(setData, () => {
         // push session name to list after success, if new session added
         this.allSessions.unshift(name);
-        resolve(updated);
+        // close selected tabs if config exists
+        if (menu.getModeSetting("closeTabsOnCreate")) {
+          tab.closeSelectedTabs(tab.getTabsIds(tabs)).then(() => resolve(updated));
+        } else {
+          resolve(updated);
+        }
       });
     });
   }
@@ -117,10 +119,8 @@ class Session {
   
     // update session list and delete session actions wrapped in promise
     return Promise.all([
-      new Promise(resolve => {
-        chrome.storage.local.set({sessions:this.allSessions}, () => resolve());
-        chrome.storage.local.remove(config.sessionsStorage.prefix+name, () => resolve());
-      })
+      chrome.storage.local.set({sessions:this.allSessions}, () => Promise.resolve()),
+      chrome.storage.local.remove(config.sessionsStorage.prefix+name, () => Promise.resolve())
     ]);
   }
 }
