@@ -426,15 +426,20 @@ class Dom {
   }
   
   acceptAction() {
+    // get action to do
     const action = this._dialogAccept.getAttribute("accept-action");
     
-    //TODO add loader
-    
     // wait for action to complete
-    menu.actions[action]()//.then(() => {
+    menu.actions[action]().then(() => {
       // close the dialog
       this.closeDialog();
-    //})
+      // remove loading state from dialog
+      this.toggleLoading(
+        config.prefixes.id,
+        config.elements.dialog,
+        false
+      );
+    });
   }
 }
 

@@ -4,7 +4,7 @@
 
 class Menu {
   constructor() {
-    this.settings = {...config.defaultSettings};
+    this.settings = JSON.parse(JSON.stringify(config.defaultSettings));
   }
   
   static get MODE() {
@@ -21,7 +21,7 @@ class Menu {
       // get settings from storage
       chrome.storage.local.get(config.menuStorage.settings, storage => {
         // merge settings storage with default settings
-        this.settings = {...config.defaultSettings, ...storage.settings};
+        this.settings = JSON.parse(JSON.stringify({...config.defaultSettings, ...storage.settings}));
         resolve();
       });
     });
@@ -48,10 +48,11 @@ class Menu {
   saveSettings() {
     let updateSettings = {};
     updateSettings[config.menuStorage.settings] = this.settings;
-    
-    chrome.storage.local.set(updateSettings, () => {
-      console.log("settings updated");
-      return Promise.resolve();
+    return new Promise(resolve => {
+      chrome.storage.local.set(updateSettings, () => {
+        console.log("settings updated");
+        return resolve();
+      });
     });
   }
   
@@ -80,14 +81,15 @@ class Menu {
   }
   
   resetConfigs() {
-    // set settings to default without connecting them (inherit)
-    this.settings = {...config.defaultSettings};
-    // set lightning mode switcher
-    DOM.syncLightningSwitcher();
-    // sync all settings in settings card
-    DOM.syncSettings();
-    // save reset settings in localstorage
-    return this.saveSettings();
+    // set settings to default without connecting them (deep copy)
+    this.settings = JSON.parse(JSON.stringify(config.defaultSettings));
+    // update reset settings in localstorage
+    return this.saveSettings().then(() => {
+      // set lightning mode switcher
+      DOM.syncLightningSwitcher();
+      // sync all settings in settings card
+      DOM.syncSettings();
+    });
   }
   
   // list of actions to run from dialog
