@@ -519,7 +519,7 @@ body {
 /* --------------------------- */
 
 /* mdl checkbox deep-purple color */
-.lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__tick-outline { /*TODO !bookmark!*/
+.lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
     background-color: #673ab7 !important;
 }
 .lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
