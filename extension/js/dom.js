@@ -335,26 +335,34 @@ class Dom {
         `<span class="setting-title">${setting.title}</span>` +
         `<div class="setting-actions">` +
           `${(setting.standard ?
-            `<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">` +
-              `<input type="checkbox" class="mdl-checkbox__input ${config.elements.settingCheckbox}" setting="${setting.id}"` +
+            `<label class="${config.elements.settingCheckboxLabel}">` +
+              `<input type="checkbox" class="${config.elements.settingCheckbox}" setting="${setting.id}"` +
               `${(setting.single ?
                   (menu.settings[setting.id] ? ` checked ` : ``)
                 : (menu.settings[setting.id][0] ? ` checked ` : ``)
               )}` +
               `${(setting.single ? `single="true"` : ``)}` +
               `>` +
+              `<div class="material-checkboxes">`+
+                `<i class="material-checkbox material-checked material-icons">check_box</i>` +
+                `<i class="material-checkbox material-not-checked material-icons">check_box_outline_blank</i>` +
+              `</div>` +
             `</label>`
             : `<span class="no-setting">-</span>`
               )}` +
           `${(setting.lightning ?
-            `<label class="${config.elements.lightningCheckbox} mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">` +
-              `<input type="checkbox" class="mdl-checkbox__input ${config.elements.settingCheckbox}" setting="${setting.id}"` +
+            `<label class="${config.elements.settingCheckboxLabel} ${config.elements.lightningCheckbox}">` +
+              `<input type="checkbox" class="${config.elements.settingCheckbox}" setting="${setting.id}"` +
               `${(setting.single ?
                   (menu.settings[setting.id] ? ` checked ` : ``)
                 : (menu.settings[setting.id][1] ? ` checked ` : ``)
               )}` +
               `${(setting.single ? `single="true"` : ``)}` +
               `>` +
+              `<div class="material-checkboxes">`+
+                `<i class="material-checkbox material-checked material-icons">check_box</i>` +
+                `<i class="material-checkbox material-not-checked material-icons">check_box_outline_blank</i>` +
+              `</div>` +
             `</label>`
             : `<span class="no-setting">-</span>`
           )}` +
@@ -420,9 +428,13 @@ class Dom {
   acceptAction() {
     const action = this._dialogAccept.getAttribute("accept-action");
     
-    menu.actions[action]().then(() => {
+    //TODO add loader
+    
+    // wait for action to complete
+    menu.actions[action]()//.then(() => {
+      // close the dialog
       this.closeDialog();
-    })
+    //})
   }
 }
 

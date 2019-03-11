@@ -57,6 +57,7 @@ const config = {
     settingListCollapsing: "setting-collapsing",
     settingListCollapsed: "setting-collapsed",
     settingCheckbox: "setting-checkbox",
+    settingCheckboxLabel: "setting-checkbox-label",
     lightningCheckbox: "lightning-checkbox",
 
     dialog: "dialog",

@@ -519,7 +519,7 @@ body {
 /* --------------------------- */
 
 /* mdl checkbox deep-purple color */
-.lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+.lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__tick-outline { /*TODO !bookmark!*/
     background-color: #673ab7 !important;
 }
 .lightning-checkbox.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
@@ -615,14 +615,49 @@ body {
 .no-setting {
     display: inline-block;
     text-align: center;
-    width: 16px;
-    padding-left: 8px;
-    padding-right: 0;
+    width: 24px;
 }
-.no-setting:last-of-type {
-    padding-left: 0;
-    padding-right: 8px;
+.setting-checkbox-label {
+    display: inline-block;
+    line-height: 50px;
+    vertical-align: middle;
+    width: 24px;
+    cursor: pointer;
 }
+.setting-checkbox {
+    display: none;
+}
+.material-checkboxes .material-not-checked,
+.setting-checkbox:checked + .material-checkboxes .material-checked {
+    display: block;
+}
+.material-checkboxes .material-checked,
+.setting-checkbox:checked + .material-checkboxes .material-not-checked {
+    display:none;
+}
+.setting-actions .material-checkbox {
+    font-size: 22px;
+    color: rgba(0,0,0,.54);
+}
+.setting-actions .material-checked {
+    color: #3f51b5;
+}
+.setting-actions .lightning-checkbox .material-checked {
+    color: #673ab7;
+}
+
+/*.setting-checkbox-label {
+    position: relative;
+    background-color: red !important;
+}
+.setting-checkbox-label::after {
+    content: "flash_on";
+    color: #673ab7;
+    font-size: .7em;
+    position: absolute;
+    top: 3px;
+    left: 2px;
+}*/
 
 .settings-separator {
     margin: 15px;
