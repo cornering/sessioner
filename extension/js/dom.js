@@ -420,9 +420,9 @@ class Dom {
   acceptAction() {
     const action = this._dialogAccept.getAttribute("accept-action");
     
-    menu.actions[action]();
-    // TODO wait for action done!
-    this.closeDialog();
+    menu.actions[action]().then(() => {
+      this.closeDialog();
+    })
   }
 }
 
