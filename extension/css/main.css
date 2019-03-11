@@ -628,13 +628,26 @@ body {
     margin: 15px;
     border-color: #e5e5e5;
 }
-
-.reset-message {
-    line-height: 36px;
-    padding-left: 10px;
+.mdl-button.mdl-button-sm {
+    height: 24px;
+    line-height: 24px;
+    font-size: .85em;
+    padding: 0 8px;
 }
 .danger-setting-button:active {
     background-color: #ff5252;
     color: #ffffff;
+}
+/* --------------------------- */
+
+/* mdl dialog content */
+.mdl-dialog.custom-dialog {
+    width: 220px;
+}
+.mdl-dialog.custom-dialog .mdl-dialog__content {
+    padding: 16px 20px;
+}
+.mdl-dialog .mdl-dialog-button {
+    border-radius: 0;
 }
 /* --------------------------- */

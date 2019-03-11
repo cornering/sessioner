@@ -51,6 +51,7 @@ class Menu {
     
     chrome.storage.local.set(updateSettings, () => {
       console.log("settings updated");
+      return Promise.resolve();
     });
   }
   
@@ -77,6 +78,22 @@ class Menu {
     // return setting value for current mode
     return this.settings[setting][(this.settings.lightningMode) ? 1 : 0];
   }
+  
+  resetConfigs() {
+    // set settings to default without connecting them (inherit)
+    this.settings = {...config.defaultSettings};
+    // set lightning mode switcher
+    DOM.syncLightningSwitcher();
+    // sync all settings in settings card
+    DOM.syncSettings();
+    // save reset settings in localstorage
+    return this.saveSettings();
+  }
+  
+  // list of actions to run from dialog
+  actions = {
+    resetConfigs: this.resetConfigs.bind(this)
+  };
 }
 
 const menu = new Menu();

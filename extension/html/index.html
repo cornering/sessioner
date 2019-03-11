@@ -67,16 +67,15 @@
             </li>
           </ul>
           <hr class="settings-separator">
-          <!--<div>
-            <button class="danger-setting-button pull-right mdl-button mdl-js-button mdl-button--raised">
-              Reset settings to default
+          <div>
+            <button prepare-action="resetConfigs" class="dialog-open danger-setting-button pull-left mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
+              Reset settings
             </button>
-            <p class="clearfix"></p>
-            <button class="danger-setting-button pull-right mdl-button mdl-js-button mdl-button--raised">
+            <button class="dialog-open danger-setting-button pull-right mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
               Clear all sessions
             </button>
             <p class="clearfix"></p>
-          </div>-->
+          </div>
           <div class="loader mdl-color--grey-50">
             <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
           </div>
@@ -147,6 +146,15 @@
           </div>
         </div>
       </section>
+      <dialog id="dialog" class="mdl-dialog custom-dialog">
+        <div class="mdl-dialog__content">
+          <p id="dialog-content"></p>
+        </div>
+        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+          <button type="button" id="dialog-reject" class="mdl-button mdl-dialog-button"></button>
+          <button accept-action="" type="button" id="dialog-accept" class="mdl-button mdl-dialog-button"></button>
+        </div>
+      </dialog>
     </div>
   </div>
 

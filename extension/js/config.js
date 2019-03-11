@@ -57,7 +57,13 @@ const config = {
     settingListCollapsing: "setting-collapsing",
     settingListCollapsed: "setting-collapsed",
     settingCheckbox: "setting-checkbox",
-    lightningCheckbox: "lightning-checkbox"
+    lightningCheckbox: "lightning-checkbox",
+
+    dialog: "dialog",
+    dialogOpen: "dialog-open",
+    dialogReject: "dialog-reject",
+    dialogAccept: "dialog-accept",
+    dialogContent: "dialog-content",
   },
   defaultFaviconUrl: "img/default-favicon.png",
   tooltipToggleTimeOut: 5000,
@@ -97,5 +103,16 @@ const config = {
       standard: true,
       lightning: true
     }
-  ]
+  ],
+  
+  // content that need to be modified in dialog before show
+  // At this moment `action` used as `menu.actions[action]` object
+  dialogContent: {
+    resetConfigs: {
+      action: "resetConfigs",
+      acceptButton: "Reset",
+      rejectButton: "Cancel",
+      text: "Are you sure that you want to reset settings to default?"
+    },
+  },
 };

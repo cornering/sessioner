@@ -42,7 +42,13 @@ class Dom {
     this._lightningSessionInput = document.getElementById(config.elements.lightningSessionInput);
     // boolean settings list
     this._booleanSettingsListUl = document.getElementById(config.elements.booleanSettingsListUl);
-  
+    // dialog modal element
+    this._dialog = document.getElementById(config.elements.dialog);
+    // elements inside dialog
+    this._dialogContent = document.getElementById(config.elements.dialogContent);
+    this._dialogAccept = document.getElementById(config.elements.dialogAccept);
+    this._dialogReject = document.getElementById(config.elements.dialogReject);
+    
     // cards status
     this.cardsLock = {
       "new-session": false,
@@ -361,7 +367,7 @@ class Dom {
     });
     // update DOM
     this._booleanSettingsListUl.innerHTML = settingsListHtml;
-  
+    
     // add collapse event
     [...document.getElementsByClassName(config.elements.settingListCollapsing)].forEach(
       element => element.addEventListener("click", () => this.toggleCollapseSetting(element))
@@ -371,6 +377,9 @@ class Dom {
     [...document.getElementsByClassName(config.elements.settingCheckbox)].forEach(
       element => element.addEventListener("change", () => this.updateSetting(element))
     );
+  
+    // update MDL styles ( f**king MDL uses js for checkbox styles )
+    //setTimeout(() => { if(componentHandler) componentHandler.upgradeDom(); }, 0);
   }
   
   toggleCollapseSetting(element) {
@@ -386,6 +395,34 @@ class Dom {
         "lightning" : "standard";
       menu.updateModeSetting(element.getAttribute("setting"), element.checked, mode)
     }
+  }
+  
+  prepareAndOpenDialog(target) {
+    // get action from element and and action content from configs
+    const action = target.getAttribute("prepare-action");
+    const dialogContent = config.dialogContent[action];
+    if(!action || !dialogContent) return;
+    
+    // update dialog elements
+    this._dialogContent.innerText = dialogContent.text;
+    this._dialogReject.innerText = dialogContent.rejectButton || "Reject";
+    this._dialogAccept.innerText = dialogContent.acceptButton || "Accept";
+    this._dialogAccept.setAttribute("accept-action", dialogContent.action);
+    // show dialog modal
+    this._dialog.showModal();
+  }
+  
+  closeDialog() {
+    // close showed dialog
+    this._dialog.close();
+  }
+  
+  acceptAction() {
+    const action = this._dialogAccept.getAttribute("accept-action");
+    
+    menu.actions[action]();
+    // TODO wait for action done!
+    this.closeDialog();
   }
 }
 

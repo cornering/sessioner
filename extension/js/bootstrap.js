@@ -107,10 +107,18 @@ DOM.setListenerToElement(config.elements.lightningSwitcher, Dom.SELECTION.id, "c
   });
 });
 
+// change lightning mode name on input blur
 DOM.setListenerToElement(config.elements.lightningSessionInput, Dom.SELECTION.id, "blur", e => {
+  // prevent action if text is same (not changed)
   if(e.target.value === menu.settings.lightningSaveDefaultName) return;
+  // update config in localstorage
   menu.updateSetting("lightningSaveDefaultName", e.target.value);
 });
+
+// dialog actions
+DOM.setListenerToElement(config.elements.dialogReject, Dom.SELECTION.id, "click", () => DOM.closeDialog());
+DOM.setListenerToElement(config.elements.dialogOpen, Dom.SELECTION.class, "click", e => DOM.prepareAndOpenDialog(e.target));
+DOM.setListenerToElement(config.elements.dialogAccept, Dom.SELECTION.id, "click", () => DOM.acceptAction());
 
 // fire event on every key press
 document.addEventListener("keydown", e => {
