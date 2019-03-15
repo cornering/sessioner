@@ -71,7 +71,7 @@
             <button prepare-action="resetConfigs" class="dialog-open danger-setting-button pull-left mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
               Reset settings
             </button>
-            <button class="dialog-open danger-setting-button pull-right mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
+            <button prepare-action="clearSessions" class="dialog-open danger-setting-button pull-right mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
               Clear all sessions
             </button>
             <p class="clearfix"></p>
@@ -88,7 +88,7 @@
           >add new session</button>
           <div class="lightning-switch-container">
             <label title="lightning mode" id="lightning-switcher" class="lightning-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
-              <input type="checkbox" class="lightning-switch mdl-switch__input">
+              <input type="checkbox" id="lightning-switcher-input" class="lightning-switch mdl-switch__input">
             </label>
           </div>
           <div class="pull-right button-container">

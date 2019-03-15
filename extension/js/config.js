@@ -52,6 +52,7 @@ const config = {
     
     settingsContainer: "settings-container",
     lightningSwitcher: "lightning-switcher",
+    lightningSwitcherInput: "lightning-switcher-input",
     lightningSessionInput: "lightning-session-name",
     booleanSettingsListUl: "boolean-settings-list",
     settingListCollapsing: "setting-collapsing",
@@ -115,5 +116,11 @@ const config = {
       rejectButton: "Cancel",
       text: "Are you sure that you want to reset settings to default?"
     },
+    clearSessions: {
+      action: "clearSessions",
+      acceptButton: "Clear",
+      rejectButton: "Cancel",
+      text: "Are you sure that you want to clear all sessions?"
+    }
   },
 };

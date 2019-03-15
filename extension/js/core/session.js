@@ -123,6 +123,14 @@ class Session {
       chrome.storage.local.remove(config.sessionsStorage.prefix+name, () => Promise.resolve())
     ]);
   }
+  
+  clearSessions() {
+    const keysToRemove = this.allSessions.map(name => config.sessionsStorage.prefix+name);
+    keysToRemove.unshift(config.sessionsStorage.list);
+    this.allSessions = [];
+    DOM.setSessionList([]);
+    return new Promise(resolve => chrome.storage.local.remove(keysToRemove, () => resolve()));
+  }
 }
 
 const session = new Session();

@@ -93,8 +93,11 @@ class Menu {
   }
   
   // list of actions to run from dialog
+  // arrow type functions used to avoid binding
+  // and other classes existence checking
   actions = {
-    resetConfigs: this.resetConfigs.bind(this)
+    resetConfigs: () => this.resetConfigs(),
+    clearSessions: () => session.clearSessions(),
   };
 }
 

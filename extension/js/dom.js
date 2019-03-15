@@ -38,6 +38,7 @@ class Dom {
     this._tabSelectAll = document.getElementById(config.elements.tabSelectAll);
     // lightning switcher(checkbox)
     this._lightningSwitcher = document.getElementById(config.elements.lightningSwitcher);
+    this._lightningSwitcherInput = document.getElementById(config.elements.lightningSwitcherInput);
     // lightning mode session default name input
     this._lightningSessionInput = document.getElementById(config.elements.lightningSessionInput);
     // boolean settings list
@@ -315,7 +316,10 @@ class Dom {
     // sync lightning mode switcher with localstorage data
     // setTimeout to work after render
     setTimeout(() => {
-      if(menu.settings.lightningMode) this._lightningSwitcher.MaterialSwitch.on();
+      if(!this._lightningSwitcher.MaterialSwitch) {
+        this._lightningSwitcherInput.checked = menu.settings.lightningMode;
+      }
+      else if(menu.settings.lightningMode) this._lightningSwitcher.MaterialSwitch.on();
       else this._lightningSwitcher.MaterialSwitch.off();
     });
   }
