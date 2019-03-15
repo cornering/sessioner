@@ -313,7 +313,11 @@ class Dom {
   
   syncLightningSwitcher() {
     // sync lightning mode switcher with localstorage data
-    this._lightningSwitcher.checked = menu.settings.lightningMode;
+    // setTimeout to work after render
+    setTimeout(() => {
+      if(menu.settings.lightningMode) this._lightningSwitcher.MaterialSwitch.on();
+      else this._lightningSwitcher.MaterialSwitch.off();
+    });
   }
   
   syncSettings() {
