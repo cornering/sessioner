@@ -17,12 +17,12 @@
   <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-  <!-- TODO how to separate html -->
   <div id="app" class="app mdl-color--grey-50">
-    <div id="wrapper" class="wrapper default">
+    <div id="wrapper" class="wrapper settings">
       <!-- each card must have class -card suffix -->
       <section class="card settings-card">
         <div class="actions-container">
+          <span class="menu-text">Settings</span>
           <div class="pull-right button-container">
             <div class="button-horizontal-border"></div>
             <button title="back" card="default" class="mdl-button pull-right circle-button toggle-card">
@@ -30,17 +30,65 @@
             </button>
           </div>
         </div>
-        <!-- TODO make menu -->
+        <div class="settings-container list-container loading">
+          <div class="material-input-container lightning-name-container">
+            <input id="lightning-session-name" type="text" class="material-input" placeholder="lightningsave">
+            <label class="material-input-border" for="lightning-session-name"></label>
+            <span class="material-input-label">Default session name</span>
+          </div>
+          <ul id="boolean-settings-list" class="boolean-settings-list">
+            <li class="collapsed">
+              <i class="material-icons keyboard-arrow-down">keyboard_arrow_down</i>
+              <i class="material-icons keyboard-arrow-up">keyboard_arrow_up</i>
+              <span class="setting-title">Default session name</span>
+              <div class="setting-actions">
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                  <input type="checkbox" class="mdl-checkbox__input setting-checkbox">
+                </label>
+                <label class="lightning-checkbox mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                  <input type="checkbox" class="mdl-checkbox__input setting-checkbox">
+                </label>
+              </div>
+              <span class="setting-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
+            </li>
+            <li>
+              <i class="material-icons keyboard-arrow-down">keyboard_arrow_down</i>
+              <i class="material-icons keyboard-arrow-up">keyboard_arrow_up</i>
+              <span class="setting-title">No overwrite mode</span>
+              <div class="setting-actions">
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                  <input type="checkbox" class="mdl-checkbox__input setting-checkbox">
+                </label>
+                <label class="lightning-checkbox mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                  <input type="checkbox" class="mdl-checkbox__input setting-checkbox">
+                </label>
+              </div>
+              <span class="setting-description">Default session name</span>
+            </li>
+          </ul>
+          <hr class="settings-separator">
+          <div>
+            <button prepare-action="resetConfigs" class="dialog-open danger-setting-button pull-left mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
+              Reset settings
+            </button>
+            <button prepare-action="clearSessions" class="dialog-open danger-setting-button pull-right mdl-button mdl-button-sm mdl-js-button mdl-button--raised">
+              Clear all sessions
+            </button>
+            <p class="clearfix"></p>
+          </div>
+          <div class="loader mdl-color--grey-50">
+            <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
+          </div>
+        </div>
       </section>
       <section id="default-card" class="card default-card">
         <div class="actions-container">
           <button id="new-session" card="new-session"
             class="mdl-button mdl-button--raised mdl-button--colored mdl-color--blue-500 toggle-card"
           >add new session</button>
-          <!-- TODO quick mode action functional -->
-          <div class="quick-switch-container">
-            <label title="quick mode" class="quick-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
-              <input type="checkbox" class="quick-switch mdl-switch__input">
+          <div class="lightning-switch-container">
+            <label title="lightning mode" id="lightning-switcher" class="lightning-switch-label material-icons mdl-switch mdl-js-switch mdl-js-ripple-effect">
+              <input type="checkbox" id="lightning-switcher-input" class="lightning-switch mdl-switch__input">
             </label>
           </div>
           <div class="pull-right button-container">
@@ -51,8 +99,21 @@
           </div>
         </div>
         <div class="session-list-container loading">
-          <span hidden id="session-add-tooltip" class="session-tooltip session-add-tooltip">Session added</span>
-          <span hidden id="session-remove-tooltip" class="session-tooltip session-remove-tooltip">Session removed</span>
+          <div id="session-add-tooltip" class="session-tooltip">
+            <span class="tooltip-number">1</span>
+            <span>Session added</span>
+            <i class="material-icons tooltip-close">cancel</i>
+          </div>
+          <div id="session-remove-tooltip" class="session-tooltip">
+            <span class="tooltip-number">1</span>
+            <span>Session removed</span>
+            <i class="material-icons tooltip-close">cancel</i>
+          </div>
+          <div id="session-update-tooltip" class="session-tooltip">
+            <span class="tooltip-number">1</span>
+            <span>Session updated</span>
+            <i class="material-icons tooltip-close">cancel</i>
+          </div>
           <ul id="session-list" class="session-list list-container"></ul>
           <div class="loader mdl-color--grey-50">
             <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
@@ -68,7 +129,7 @@
             <div class="pull-right button-horizontal-border"></div>
           </div>
           <div class="pull-right new-session-container">
-            <input type="text" placeholder=" session name" id="session-name" class="new-session-input">
+            <input id="session-name" type="text" class="new-session-input" placeholder=" session name">
             <button title="save session" card="default" id="save-session" class="mdl-button mdl-button--fab mdl-color--blue-500 pull-right circle-button session-save" disabled>
               <i class="material-icons">save_alt</i>
             </button>
@@ -85,6 +146,18 @@
           </div>
         </div>
       </section>
+      <dialog id="dialog" class="mdl-dialog custom-dialog">
+        <div class="mdl-dialog__content">
+          <p id="dialog-content"></p>
+        </div>
+        <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+          <button type="button" id="dialog-reject" class="mdl-button mdl-dialog-button"></button>
+          <button accept-action="" type="button" id="dialog-accept" class="mdl-button mdl-dialog-button"></button>
+        </div>
+        <div class="loader mdl-color--grey-50">
+          <div class="spinner-x3 mdl-spinner mdl-spinner-x3 mdl-js-spinner is-active"></div>
+        </div>
+      </dialog>
     </div>
   </div>
 
@@ -92,6 +165,7 @@
   <!-- Load config file at first -->
   <script src="../js/config.js"></script>
   <!-- Load classes -->
+  <script src="../js/core/menu.js"></script>
   <script src="../js/core/tab.js"></script>
   <script src="../js/core/session.js"></script>
   <script src="../js/dom.js"></script>
